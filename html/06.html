@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>定时器 京东轮播图</title>
+        <meta charset="utf8"/>
+        <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        body,ul,li,button{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            border: 0px;
+        }
+        .wrap{
+            width: 590px;
+            height: 470px;
+            margin: 200px auto;
+            position: relative;
+        }
+        .bg{
+            display: none; 
+        }
+        .bg.active{
+            display: block;
+        }
+        /* 清除浮动 */
+        .clearfix:before,
+        .clearfix:after{
+        display: table;
+        content: "";
+        }
+        .clearfix:after{
+        clear: both;
+        }
+        ul{
+            position: absolute;
+            top: 430px;
+            left: 200px;
+        }
+        li{
+            float: left;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: gray;
+            margin: 10px;
+        }
+        li.active{
+            background-color: red;
+        }
+        </style>
+    </head>
+    <body>
+          <div class="wrap">             
+                <div class="bg active"><img src="./image/bg01.jpg" alt=""></div>
+                <div class="bg"><img src="./image/bg02.jpg" alt=""></div>
+                <div class="bg"><img src="./image/bg03.jpg" alt=""></div>
+                <div class="bg"><img src="./image/bg04.jpg" alt=""></div>
+                <div class="bg"><img src="./image/bg05.jpg" alt=""></div>
+                <ul>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>              
+          </div>
+          <script>
+                var a_bg = document.getElementsByClassName('bg');
+                var a_li = document.getElementsByTagName('li');
+                var nowindex =0;
+                function recover(abtn,abox){
+                    for(var n=0; n<abtn.length; n++){
+                    abtn[n].style.backgroundColor = 'gray';
+                    abox[n].style.display = 'none';
+                    }
+                }
+                function autoplay(abtn,abox){
+                    timer = setInterval(() => {
+                        recover(abtn,abox);
+                        nowindex = nowindex % abtn.length;
+                        abtn[nowindex].style.backgroundColor = 'red';
+                        abox[nowindex].style.display = 'block';
+                        nowindex++;
+                    }, 1000);
+                }
+                function initialize(abtn,abox){
+                    for(var i=0; i<abtn.length; i++){
+                        abtn[i].index = i;
+                        abtn[i].onmouseover = function(){
+                            clearInterval(timer);
+                            recover(abtn,abox);
+                            abtn[this.index].style.backgroundColor = 'red'
+                            abox[this.index].style.display = 'block';
+                        }
+                        abtn[i].onmouseout = function(){
+                            nowindex = this.index + 1;
+                            autoplay();
+                        };
+                        
+                    }
+                }
+                initialize(a_li,a_bg);
+                autoplay(a_li,a_bg);
+
+          </script>
+    </body>
+</html>

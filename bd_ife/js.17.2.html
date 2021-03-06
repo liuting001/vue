@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table><tr><td></td></tr></table>
+    <script>
+        //小练习，练习使用循环实现一个九九乘法表
+        //第一步，最低要求：在Console中按行输出 n * m = t
+        //然后，尝试在网页中，使用table来实现一个九九乘法表
+
+
+        // var tab = '';
+        // var str_tr = '';
+        // for(let i = 1; i <= 9; i++){
+        //     var str_td = '';
+        //     for(let n = 1; n <= i; n++){
+        //         var str = (i +'*'+ n +'='+ i*n).toString();
+        //         //arr.push(str);
+        //         str_td = str_td +'<td>'+ str +'</td>'
+        //     }
+        //     //console.log(arr.join());
+        //     str_tr = str_tr + '<tr>'+ str_td +'</tr>' 
+        // }
+        // tab = tab +'<table>'+ str_tr +'</table>';
+        // document.write(tab);
+
+
+        var tab = '<table>';
+        for(let i = 1; i <= 9; i++){
+            tab = tab + '<tr>'
+            for(let n = 1; n <= i; n++){
+                var str = (i +'*'+ n +'='+ i*n).toString();
+                tab = tab + '<td>'+ str +'</td>'
+            }
+            tab = tab +'</tr>' 
+        }
+        tab = tab +'</table>' ;
+        document.write(tab);
+
+    </script>
+</body>
+</html>

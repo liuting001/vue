@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mystyle.css">
+    <style>
+        select{
+            width: 200px;
+            height: 400px;
+            font-size: 18px;
+        }
+        button{
+            font-size: 18px;
+        }
+    </style>
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+            // 向右
+            $('button:eq(0)').click(function(){
+                $('#sel1 option').each(function(index,item){
+                    if($(item).prop('selected')){
+                        $(item).appendTo($('#sel2'));
+                    }
+                })
+            })
+            // 全部向右
+            $('button:eq(1)').click(function(){
+                $('#sel1 option').each(function(index,item){
+                    $(item).appendTo($('#sel2')); 
+                })
+            })
+            // 向左
+            $('button:eq(2)').click(function(){
+                $('#sel2 option').each(function(index,item){
+                    if($(item).prop('selected')){
+                        $(item).appendTo($('#sel1'));
+                    }
+                })
+            })
+            // 全部向左
+            $('button:eq(3)').click(function(){
+                $('#sel2 option').each(function(index,item){
+                    $(item).appendTo($('#sel1'));   
+                })
+            })
+        })
+    </script>
+
+</head>
+<body>
+    <select  multiple id="sel1">
+        <option value="篮球">篮球</option>
+        <option value="足球">足球</option>
+        <option value="棒球">棒球</option>
+        <option value="羽毛球">羽毛球</option>
+        <option value="乒乓球">乒乓球</option>
+        <option value="橄榄球">橄榄球</option>
+        <option value="桌球">桌球</option>
+    </select>
+    <button>向右</button>
+    <button>全部向右</button>
+    <button>向左</button>
+    <button>全部向左</button>
+<select multiple id="sel2"></select>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mystyle.css">
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <style>
+        ul{
+            width: 280px;
+            height: 200px;
+            margin: 100px auto;
+            font-size: 24px;
+        }
+        button{
+            margin: auto 20px;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        $(function(){
+           $('.down').click(function(){
+                var nowli = $(this).closest('li');
+                var nextli = $(nowli).next('li');
+                $(nowli).insertAfter(nextli);
+                if(nextli.length === 0){
+                    alert('下面已经没有元素了')
+                    console.log(nextli);
+                }
+           }) ;
+           $('.up').click(function(){
+                var nowli = $(this).closest('li');
+                var prevli = $(nowli).prev('li');
+                $(nowli).insertBefore(prevli);
+                if(prevli.length === 0){
+                    alert('上面已经没有元素了')
+                    console.log(prevli);
+                }
+           }) ;
+        })
+    </script>
+</head>
+<body>
+    <ul>
+        <li><button class="down">下移</button>新闻1号<button class="up">上移</button></li>
+        <li><button class="down">下移</button>新闻2号<button class="up">上移</button></li>
+        <li><button class="down">下移</button>新闻3号<button class="up">上移</button></li>
+        <li><button class="down">下移</button>新闻4号<button class="up">上移</button></li>
+        <li><button class="down">下移</button>新闻5号<button class="up">上移</button></li>
+        <li><button class="down">下移</button>新闻6号<button class="up">上移</button></li>
+    </ul>
+</body>
+</html>

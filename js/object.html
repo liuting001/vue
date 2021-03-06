@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function User(name) {
+        //     var name1 = name;
+        //     this.name2 = name;
+        //     function getName1(){
+        //         return name1;
+        //     }
+        // }
+        // User.prototype.getName2 = function () {
+        //     return this.name2;
+        // }
+        // User.name3 = 'xiaohong';
+        // User.getName3 = function () {
+        //     return this.name2;
+        // }
+        // var p1 = new User('xiaoqiang');
+        // // console.log(p1.name1)
+        // // console.log(p1.getName1());
+        // // console.log(p1.name3)
+        // // console.log(p1.getName3())
+        // // console.log(p1.name2)
+        // // console.log(p1.getName2) 
+        // // console.log(User.getName3())
+        // console.log(User.name1)
+        // console.log(User.getName1())
+
+
+        function Foo() {
+            window.getName = function () { 
+                alert(1); 
+            }
+            return this;
+        }
+
+        Foo.getName = function () { 
+            alert(2); 
+        }
+        Foo.prototype.getName = function () { 
+            alert(3); 
+        }
+        var getName = function () { 
+            alert(4); 
+        };
+        function getName() { 
+            alert(5); 
+        }
+        // console.log(Foo.getName())
+        // getName();
+        Foo().getName();
+    </script>
+</body>
+</html>

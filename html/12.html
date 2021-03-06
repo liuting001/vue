@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+           $('button:eq(0)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               $('ul').append(sli);
+           });
+           $('button:eq(1)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               sli.appendTo($('ul'));
+           });
+           $('button:eq(2)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               $('ul').prepend(sli);
+           });
+           $('button:eq(3)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               sli.prependTo($('ul'));
+           });
+
+           $('button:eq(4)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               $('li').after(sli);
+           });
+           $('button:eq(5)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               sli.insertAfter($('li'));
+           });
+           $('button:eq(6)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               $('li').before(sli);
+           });
+           $('button:eq(7)').click(function(){
+               var v = $('input').val();
+               var sli = $('<li>'+ v +'</li>');
+               sli.insertBefore($('li'));
+           });
+        })
+    </script>
+</head>
+<body>
+    <input type="text">
+    <button>append</button>
+    <button>appendto</button>
+    <button>prepend</button>
+    <button>prependto</button>
+    <button>after</button>
+    <button>insertafter</button>
+    <button>before</button>
+    <button>insertbefore</button>
+    <ul>
+        <li>111</li>
+    </ul>
+</body>
+</html>

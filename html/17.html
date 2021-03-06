@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box1,#box2,#box3,#box4{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+        #box2{
+            left: 300px;
+            background-color: blue;
+        }
+        #box3{
+            left: 500px;
+            background-color: green;
+        }
+        #box4{
+            left: 700px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+    <div id="box4"></div>
+    <!-- <iframe src="http://nodeing.com" frameborder="0" width="1000px" height="500px"></iframe> -->
+    <script>
+        // function fn(){}
+        // var f1 = new fn();
+        // var arr = [1,8,6];
+        // console.log(arr.constructor === Array);
+        // console.log(arr instanceof Array);
+        // console.log(Object.prototype.toString.call(arr) == '[object Array]')
+        // console.log()
+
+        // var oiframe = document.getElementsByTagName('iframe')[0];
+        // var iframe_window = oiframe.contentWindow;
+        // var iframe_string = iframe_window.String;
+        // var str1 = new iframe_string();
+        // console.log(str1.constructor == String);
+        // console.log(str1 instanceof String);
+        // console.log(Object.prototype.toString.call(str1) == '[object String]')
+
+
+        // function Person1(name){
+        //     this.name = name;
+        // }
+        // Person1.prototype.showname = function(){
+        //     alert(this.name);
+        // }
+        // Person1.prototype.showage = function(age1,age2){
+        //     alert(age1);
+        //     alert(age2);
+        // }
+        // function Person2(name){
+        //     this.name = name;
+        // }
+        // var p1 = new Person1('xiaohong');
+        // var p2 = new Person2('xiaoqiang');
+        // p1.showage.apply(p2,[20,30])
+
+
+        // function fn(){
+        //    return [].join.call(arguments,'-')
+        // }
+        // console.log(fn(1,2,4));
+
+
+        // function parents(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // parents.prototype.showname = function(){
+        //     alert(this.name)
+        // }
+        // function child(name,age){
+        //     parents.call(this,name,age);
+        // }
+        // // child.prototype = parents.prototype;
+        // function extend(obj_p,obj_c){
+        //     for(var attr in obj_p){
+        //         obj_c[attr] = obj_p[attr]
+        //     }
+        // }
+        // extend(parents.prototype,child.prototype)
+
+        // child.prototype.showage = function(){
+        //     alert(age)
+        // }
+        // var c1 = new child('xiaoqiang',20);
+        // var p1 = new parents('laoli',50);
+        // console.log(c1);
+        // console.log(p1);
+
+        
+        function mover(){
+            this.obox = null;
+            this.dx = 0;
+            this.dy = 0;
+            this.settings = {
+                mouse_down:function(){},
+                mouse_move:function(){},
+                mouse_up: function(){},
+            }
+           
+        }
+        mover.prototype.fn_move = function(ev){
+            var ev = ev || event;
+            this.obox.style.left = ev.clientX - this.dx +'px';
+            this.obox.style.top = ev.clientY - this.dy +'px';
+            // console.log(this.obox.style.top);
+        }
+        mover.prototype.fn_up = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        mover.prototype.fn_down = function(ev){
+            ev = ev || event;
+            this.dx = ev.clientX - this.obox.offsetLeft;
+            this.dy = ev.clientY - this.obox.offsetTop;
+            // console.log( this.obox.offsetTop)
+            var that = this;
+            document.onmousemove = function(ev){
+               that.fn_move(ev);
+               that.settings.mouse_move(that.obox);
+            }
+            document.onmouseup = function () {
+               that.fn_up();
+               that.settings.mouse_up()
+            }
+            ev.stopPropagation();
+        }
+        mover.prototype.init = function(options){
+            this.obox = document.getElementById(options.id);
+            extend(options,this.settings);
+            var that = this;
+            this.obox.onmousedown = function(ev){
+                that.fn_down(ev);
+                that.settings.mouse_down(this);
+            }
+        }
+
+        // function mover_chlid(box){
+        //     mover.call(this,box)
+        // }
+        function extend(obj_p,obj_c){
+            for(var attr in obj_p){
+                obj_c[attr] = obj_p[attr]
+            }
+        }
+        // extend(mover.prototype,mover_chlid.prototype)
+        // mover_chlid.prototype.fn_move = function(ev){
+        //     var ev = ev || event;
+        //     var L = ev.clientX - this.dx;
+        //     var T = ev.clientY - this.dy;
+        //     if(L < 0){
+        //         L=0
+        //     }
+        //     if(T < 0){ 
+        //         T=0
+        //     }
+        //     if(L > (vw() -  this.obox.offsetWidth) ){
+        //         L = (vw() -  this.obox.offsetWidth);
+        //     }
+        //     if(T > (vh() -  this.obox.offsetHight) ){
+        //         T = (vh() -  this.obox.offsetHight);
+        //     }
+        //     this.obox.style.left = L +'px';
+        //     this.obox.style.top = T +'px';
+        //     // console.log(this.obox.style.top);
+        // }
+        //获取可视区的宽高
+        // function vw(){return document.documentElement.clientWidth;}
+        // function vh(){return document.documentElement.clientHeight;}
+        var m1 = new mover();
+        m1.init({
+            id: 'box1',
+        });
+
+        var m2 = new mover();
+        m2.init({
+            id: 'box2',
+            mouse_down: function(obj){
+                console.log('mouse down !');
+                obj.innerText = 'qqqqqqqqqqqq'
+                obj.style.color = 'white'
+            },
+        });
+
+        var m3 = new mover();
+        m3.init({
+            id: 'box3',
+            mouse_move: function(obj){
+                console.log('mouse move !');
+                obj.style.backgroundColor = 'black'
+            }
+        });
+
+        var m4 = new mover();
+        m4.init({
+            id: 'box4',
+            mouse_up: function(){
+                console.log('mouse up !');
+                alert('提示：');
+            }
+        });
+
+    </script>
+</body>
+</html>

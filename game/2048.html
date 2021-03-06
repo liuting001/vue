@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048在线游戏</title>
+    <style type="text/css">
+        p {
+            margin: 0px;
+        }
+        /* 浮动 和 清除浮动 */
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
+        .clearfix:before,.clearfix:after {
+            display: table;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix{
+            *zoom: 1;
+        }
+        #wrap {
+            width: 500px;
+            height: 800px;
+            background-color: #FAF8EF;
+            margin: 100px auto;
+            padding: 30px;
+        }
+        #heading-left {
+            font-size: 80px;
+            font-weight: bolder;
+            color: #776E65;
+            width: 50%;
+            height: 100px;
+            line-height: 100px;
+        }
+        #heading-right {
+            font-size: 50px;
+            font-weight: white;
+            color: white;
+            width: 50%;
+            height: 100px;
+        }
+        #score,
+        #best {
+            background-color: #BBADA0;
+            width: 45%;
+            border-radius: 5px;
+            margin: 5px;
+            text-align: center;
+        }
+        #tips-left {
+            font-size: 15px;
+            color: #776E65;
+            line-height: 30px;
+        }
+        #tips-left p:first-of-type {
+            font-weight: bolder;
+        }
+        button {
+            background-color: #8F7A66;
+            width: 120px;
+            height: 40px;
+            font-weight: bolder;
+            font-size: 18px;
+            color: white;
+            margin-top: 15px;
+            margin-right: 5px;
+            padding: 0px;
+            border: 0px;
+            border-radius: 5px;
+        }
+        #content {
+            background-color: #BBADA0;
+            width: 480px;
+            height: 484px;
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .cell {
+            background-color: rgba(238, 228, 218, 0.38);
+            width: 100px;
+            height: 100px;
+            border-radius: 2px;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 50px;
+            color: #776E65;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="haeding" class="clearfix">
+            <div id="heading-left" class="left">2048</div>
+            <div id="heading-right" class="right clearfix">
+                <div id="score" class="left">
+                    <div style="font-size: 20px;">score</div>
+                    <div>0</div>
+                </div>
+                <div id='best' class="right">
+                    <div style="font-size: 20px;">score</div>
+                    <div>0</div>
+                </div>
+            </div>
+        </div>
+        <div id="tips" class="clearfix">
+            <div id="tips-left" class="left">
+                <p>Play 2048 Game Online</p>
+                <p>Join the numbers and get to the 2048 title!</p>
+            </div>
+            <div id="tips-right" class="right">
+                <button id="btn">New Game</button>
+            </div>
+        </div>
+        <div id="content" class="clearfix">
+            <div class="cell left" id="cell-0-0"></div>
+            <div class="cell left" id="cell-0-1"></div>
+            <div class="cell left" id="cell-0-2"></div>
+            <div class="cell left" id="cell-0-3"></div>
+
+            <div class="cell left" id="cell-1-0"></div>
+            <div class="cell left" id="cell-1-1"></div>
+            <div class="cell left" id="cell-1-2"></div>
+            <div class="cell left" id="cell-1-3"></div>
+
+            <div class="cell left" id="cell-2-0"></div>
+            <div class="cell left" id="cell-2-1"></div>
+            <div class="cell left" id="cell-2-2"></div>
+            <div class="cell left" id="cell-2-3"></div>
+
+            <div class="cell left" id="cell-3-0"></div>
+            <div class="cell left" id="cell-3-1"></div>
+            <div class="cell left" id="cell-3-2"></div>
+            <div class="cell left" id="cell-3-3"></div>
+        </div>
+    </div>
+    <script>
+        var obtn = document.getElementById('btn');
+        var ocontent = document.getElementById('content');
+        //获取目标格子
+        function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1) + min) };
+        //调整背景
+        function bg(){
+            for (let i = 0; i < 16; i++) {
+                if(ocontent.children[i].innerHTML == ''){
+                    ocontent.children[i].style.backgroundColor = 'rgba(238, 228, 218, 0.38)';
+                }else{
+                    ocontent.children[i].style.backgroundColor = '#EEE4DA';
+                }
+                   
+            }
+        }
+        //开始新游戏
+        obtn.onclick = function () {
+            var n1 = getRandomInt(0, 15);
+            var n2 = getRandomInt(0, 15);
+            if (n1 != n2) {
+                for (let i = 0; i < 16; i++){
+                    ocontent.children[i].innerHTML = '';
+                }
+                ocontent.children[n1].innerHTML = '2';
+                ocontent.children[n2].innerHTML = '2';
+                bg();
+            } else {
+                n2 = getRandomInt(0, 15);
+            }
+        }
+        //走棋
+        function mover(keyCode) {
+            switch (keyCode) {
+                case 37:
+                    for (let i = 0; i < 16; i++) {
+                        var X = i % 4;
+                        var Y = (i-X) / 4;
+                        if(X = 1){
+                            if(ocontent.children[i-1].innerHTML == '' || ocontent.children[i-1].innerHTML == ocontent.children[1].innerHTML ){
+                                //空白或相同
+                                ocontent.children[i-1].innerHTML = parseInt(ocontent.children[i-1].innerHTML) + parseInt(ocontent.children[i].innerHTML);
+                                ocontent.children[i-1].innerHTML = '';
+                            }
+                        }else if(X == 2){
+                            if(ocontent.children[i-1].innerHTML == '' && ocontent.children[i-2].innerHTML == ''){
+                                //两个空白
+                                ocontent.children[i-2].innerHTML = parseInt(ocontent.children[i].innerHTML);
+                                ocontent.children[i].innerHTML = '';
+                            }else if(ocontent.children[i-1].innerHTML == ocontent.children[1-2].innerHTML ){
+                                //两个相同
+                                ocontent.children[i-2].innerHTML = 2 * parseInt(ocontent.children[i-2].innerHTML);
+                                ocontent.children[i-1].innerHTML = parseInt(ocontent.children[i].innerHTML);
+                            }
+                        }
+                    }
+                    break;
+                case 38:
+
+                    break;
+                case 39:
+
+                    break;
+                case 40:
+
+                    break;
+            }
+        }
+        mover();
+    </script>
+</body>
+
+</html>

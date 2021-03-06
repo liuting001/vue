@@ -1,0 +1,30 @@
+
+*{
+	box-sizing: border-box;
+}
+/* 重置 */
+body,ul,li,button{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    list-style: none;
+}
+/* 浮动 */
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+/* 清除浮动 */
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    line-height: 0px;
+    content: "";
+}
+.clearfix:after {
+    clear: both;
+}

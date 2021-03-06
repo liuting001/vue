@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mystyle.css">
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <style>
+        button{
+            font-size: 20px;
+        }
+        #wrap1 div, #wrap2 div{
+            width: 150px;
+            height: 100px;
+            border: 1px solid red;
+            display: none;
+        }
+        .b-active{
+            background-color: red;
+        }
+        .d-active{
+            display: block;
+        }
+    </style>
+    <script>
+        // $(function(){
+        //     $('button').click(function(){
+        //         var si = $(this).index();
+        //         $('button').eq(si).addClass('b-active').siblings('button').removeClass('b-active');
+        //         $('div').eq(si).addClass('d-active').siblings('div').removeClass('d-active');
+        //     });
+        // })
+
+        
+       
+    </script>
+</head>
+<body>
+    <div id="wrap1">
+        <button class="b-active">btn_1</button>
+        <button>btn_2</button>
+        <button>btn_3</button>
+        <div class="d-active">div_1</div>
+        <div>div_2</div>
+        <div>div_3</div>
+    </div>
+    <div id="wrap2">
+        <button class="b-active">btn_1</button>
+        <button>btn_2</button>
+        <button>btn_3</button>
+        <div class="d-active">div_1</div>
+        <div>div_2</div>
+        <div>div_3</div>
+    </div>
+    <script>
+        // var owrap1 = document.getElementById('wrap1');
+        // var abtn = owrap1.getElementsByTagName('button');
+        // var adiv = owrap1.getElementsByTagName('div');
+        // for(var i=0; i<abtn.length; i++){
+        //     abtn[i].index = i;
+        //     abtn[i].onclick = change;
+        // }
+        // function change(){
+        //     for(var j=0; j<abtn.length; j++){
+        //         abtn[j].style.backgroundColor = 'white';
+        //         adiv[j].style.display = 'none';
+        //     }
+        //     this.style.backgroundColor = 'red';
+        //     adiv[this.index].style.display = 'block';  
+        // }
+
+
+
+
+        function tab(warp){
+            this.owrap1 = document.getElementById(warp);
+            this.abtn = this.owrap1.getElementsByTagName('button');
+            this.adiv = this.owrap1.getElementsByTagName('div');
+        }
+        tab.prototype.change = function changetab(obj){
+            var btns = this.abtn;
+            for(var j=0; j<this.abtn.length; j++){
+                this.abtn[j].style.backgroundColor = 'white';
+                this.adiv[j].style.display = 'none';
+            }
+            obj.style.backgroundColor = 'red';
+            this.adiv[obj.index].style.display = 'block';  
+        }
+        tab.prototype.init = function(){
+            for(var i=0; i<this.abtn.length; i++){
+                this.abtn[i].index = i;
+
+                var that = this;
+                this.abtn[i].onclick = function(){
+                    var btn = this;
+                    that.change(btn);
+                };
+            }
+        }
+
+        var mytab = new tab('wrap1');
+        mytab.init();
+
+        var mytab2 = new tab('wrap2');
+        mytab2.init();
+
+        
+    </script>
+</body>
+</html>

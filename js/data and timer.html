@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../mystyle.css">
+    <style>
+        #box{
+            width: 590px;
+            height: 470px;
+            margin: 100px auto;
+            text-align: left;
+            position: relative;
+        }
+        img{
+            display: none;
+        }
+        .active_img{
+            display: block;
+        }
+        #ul{
+            position: absolute;
+            bottom: 20px;
+            left: 40%;
+        }
+        li{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: gray;
+            float: left;
+            margin-left:5px;
+        }
+        .active_li{
+            background-color:red;
+        }
+       
+        
+    </style>
+</head>
+<body>
+    <!-- <div id="box">
+        <img class="active_img" src="../image/bg01.jpg">
+        <img src="../image/bg02.jpg">
+        <img src="../image/bg03.jpg">
+        <img src="../image/bg04.jpg">
+        <img src="../image/bg05.jpg">
+        <ul id="ul" class="clearfix">
+            <li class="active_li"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>    
+    </div> -->
+    <script>
+        // function fn(j){
+        //     setTimeout( function timer() {
+        //     console.log(j);
+        //     }, j * 1000 );
+        // }
+        // for (var i = 1; i <= 5; i++) {
+        //     fn(i);
+        // }
+        // var obox = document.getElementById('box');
+        // var oul = document.getElementById('ul');
+        // var aimg = document.getElementsByTagName('img')
+        // var ali = document.getElementsByTagName('li')
+        // var timer1 = null;
+        // var i = 0;
+        // function player(){
+        //     timer1 = setInterval(function(){
+        //         i += 1;
+        //         recover();
+        //         aimg[i].style.display = 'block';
+        //         ali[i].style.backgroundColor = 'red'
+        //         if(i == ali.length-1){
+        //             i = -1;
+        //         }
+        //     },1000)
+        // }
+        
+        // function recover(){
+        //     for(var i=0; i<ali.length; i++){
+        //         aimg[i].style.display = 'none';
+        //         ali[i].style.backgroundColor = 'gray' 
+        //     }
+        // }
+    
+        // for(var m = 0; m<ali.length; m++){
+        //     ali[m].index = m;
+        //     ali[m].onmouseover = function(){
+        //         var a = this.index;
+        //         recover();
+        //         clearInterval(timer1);
+        //         aimg[a].style.display = 'block';
+        //         this.style.backgroundColor = 'red';
+        //         ali[a].onmouseout = function(){
+        //             i = a;
+        //             player();
+        //         }
+        //     } 
+        // }
+        // player();
+        
+
+    // 1  new date(),创建一个特定日期，月份（0-11），顺序为年月日时分秒。
+    //    tolocalstring转化成本地时间格式
+        // var date = new Date();
+
+    // 2  getdate 获取日期。 getmounse,getfullyear
+        //  var a = date.getDate()+10;
+        //  date.setDate(a);
+        //  console.log(date.toLocaleString());
+    // 3  getime 获取时间戳，毫秒，
+        // var start = new Date().getTime();
+        // var end = date.getTime();
+        // console.log((end - start)/1000/60/60/24);
+
+    // 4,5,6,7
+    // setInterval(fn,time)  每次间隔time，重复发生fn
+    // setTimeout(fn,time)   time时间之后，发生fn
+    // clearInterval,
+    // parseint 取整数
+    // window.open(),打开网页
+        // function getStyle(obj, attr){ 
+        //     return window.getComputedStyle ? getComputedStyle(obj)[attr]: obj.currentStyle[attr] 
+        // }
+        // var otb = document.getElementById('timebox');
+        // var obtn1 = document.getElementById('btn1');
+        // var obtn2 = document.getElementById('btn2');
+        // var timer1 = null;
+        // var timer2 = null;
+        // obtn1.onclick = function(){
+        //     clearInterval(timer1);
+        //     timer1 = setInterval(function(){
+        //         var date = new Date();
+        //         var s = date.toLocaleString();
+        //         otb.innerHTML = s;
+        //     },1000)
+        // }
+        // obtn2.onclick = function(){
+        //     clearInterval(timer2);
+        //     timer2 = setInterval(function(){
+        //         var l = getStyle(otb, 'left');
+        //         console.log(l);
+        //         otb.style.left = parseInt(l)+ 20 + 'px'
+        //     },1000)
+        // }
+        
+        
+            // var n = 5;
+            // timer1 = setInterval(() => {
+            //     n = n - 1
+            //     obtn2.innerHTML = '阅读'+n+'秒后同意';
+            //     if(n === 0){
+            //         clearInterval(timer1);
+            //         obtn2.innerHTML = '确认';
+            //         obtn2.disabled = false;
+            //     }
+            // }, 1000);
+            
+        
+
+        // 8 getRandomInt获取随机整数
+        // function getRandomInt(min,max){return Math.floor(Math.random()*(max-min+1)+min)}
+        // obtn1.onclick = function(){
+        //     clearInterval(timer1);
+        //     timer1 = setInterval(function(){
+        //         var num = getRandomInt(0,100);
+        //         otb.innerHTML = num;
+        //     },1000)
+        // }
+
+
+
+    </script>
+</body>
+</html>

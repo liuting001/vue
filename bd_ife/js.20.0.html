@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="name" type="text">
+    <button id="submit-btn">Submit</button>
+    <script>
+        //当点击按钮 submit-btn 时，在console中输出 name 中的内容
+        //在输入过程中，如果按回车键，则同样执行上一条的需求
+        //在输入过程中，如果按 ESC 键，则把输入框中的内容清空
+        var oname = document.getElementById('name');
+        var osub_btn = document.getElementById('submit-btn');
+        osub_btn.onclick = function(){
+            console.log(oname.value)
+        }
+        document.onkeyup = function(ev){
+            var ev = event || ev;
+            switch(ev.keyCode){
+                case 13:
+                console.log(oname.value);
+                break;
+                case 27:
+                oname.value = '';
+                break;
+            }
+        }
+    </script>
+</body>
+</html>

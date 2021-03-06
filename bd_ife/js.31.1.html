@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多选 </title>
+    <style>
+        #saletable {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #saletable td {
+            border: 1px solid black;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <label for="checkAllProduct"><input type="checkbox" id="checkAllProduct">商品全选</label>
+        <div id="product-radio">
+            <label for="product1"><input type="checkbox" id="product1" class="product" value="手机">手机</label>
+            <label for="product2"><input type="checkbox" id="product2" class="product" value="笔记本">笔记本</label>
+            <label for="product3"><input type="checkbox" id="product3" class="product" value="智能音箱">智能音箱</label>
+        </div>
+        <label for="checkAllRegion"><input type="checkbox" id="checkAllRegion">地区全选</label>
+        <div id="region-radio">
+            <label for="region1"><input type="checkbox" id="region1" class="region" value="华东">华东</label>
+            <label for="region2"><input type="checkbox" id="region2" class="region" value="华北">华北</label>
+            <label for="region3"><input type="checkbox" id="region3" class="region" value="华南">华南</label>
+        </div>
+    </div>
+    <table id="saletable" cellspacing="0">
+    </table>
+    <script>
+        let sourceData = [{
+            product: "手机",
+            region: "华东",
+            sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+        }, {
+            product: "手机",
+            region: "华北",
+            sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+        }, {
+            product: "手机",
+            region: "华南",
+            sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+        }, {
+            product: "笔记本",
+            region: "华东",
+            sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+        }, {
+            product: "笔记本",
+            region: "华北",
+            sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+        }, {
+            product: "笔记本",
+            region: "华南",
+            sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+        }, {
+            product: "智能音箱",
+            region: "华东",
+            sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+        }, {
+            product: "智能音箱",
+            region: "华北",
+            sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+        }, {
+            product: "智能音箱",
+            region: "华南",
+            sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+        }];
+        var osaletable = document.getElementById('saletable');
+        var owrap = document.getElementById('wrap');
+        var ocheckAllProduct = document.getElementById('checkAllProduct');
+        var ocheckAllRegion = document.getElementById('checkAllRegion');
+        var all_product = document.getElementsByClassName('product');
+        var all_region = document.getElementsByClassName('region');
+        var all_data = document.getElementsByClassName('data')
+        function checkAll(arr) {//全选
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].checked = 'checked';
+            }
+        }
+        function revision() {//校对全选
+            if (all_product[0].checked && all_product[1].checked && all_product[2].checked) {
+                ocheckAllProduct.checked = true;
+            } else {
+                ocheckAllProduct.checked = false;
+            }
+            if (all_region[0].checked && all_region[1].checked && all_region[2].checked) {
+                ocheckAllRegion.checked = true;
+            } else {
+                ocheckAllRegion.checked = false;
+            }
+        }
+        function getTableHead(a,b) {
+            return '<tr>' +
+                '<td>'+a+'</td>' +
+                '<td>'+b+'</td>' +
+                '<td>1月</td>' +
+                '<td>2月</td>' +
+                '<td>3月</td>' +
+                '<td>4月</td>' +
+                '<td>5月</td>' +
+                '<td>6月</td>' +
+                '<td>7月</td>' +
+                '<td>8月</td>' +
+                '<td>9月</td>' +
+                '<td>10月</td>' +
+                '<td>11月</td>' +
+                '<td>12月</td>' +
+                '</tr>'
+        }
+        function getCheckedValue(arr) {
+            var res = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].checked == true) {
+                    res.push(arr[i].value)
+                }
+            }
+            return res
+        }
+        function judge(num, arr) {
+            for (var i = 0; i < arr.length; i++) {
+                if (num == arr[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        function getData(arr_pro, arr_reg) {
+            var data = [];
+            for (var i = 0; i < sourceData.length; i++) {
+                if (!judge(sourceData[i].product, arr_pro) || !judge(sourceData[i].region, arr_reg)) {
+                    continue;
+                }
+                data.push(sourceData[i]);
+            }
+            return data;
+        }
+        function showTable(data) {
+            var html = getTableHead('商品','地区');
+            var products = getCheckedValue(all_product);
+            var regions = getCheckedValue(all_region);
+            if (regions.length > 1) {
+                for (var i = 0; i < products.length; i++) {
+                    html += '<tr><td rowspan="'+ regions.length +'">' + products[i] + '</td>';
+                    html += '<td>' + regions[0] + '</td>';
+                    for (var j = 0; j < 12; j++) {
+                        html += '<td>' + data[i * regions.length].sale[j] + '</td>';
+                    }
+                    for (var e = 1; e < regions.length; e++) {
+                        html += '<tr><td>' + regions[e] + '</td>';
+                        for (var j = 0; j < 12; j++) {
+                            html += '<td>' + data[i * regions.length + e].sale[j] + '</td>';
+                        }
+                        html += '</tr>';
+                    }
+                    html += '</tr>';
+                }
+            }else if(regions.length == 1){
+                if(products.length == 1){
+                    html += '<tr><td>'+ products[0] + '</td>';
+                    html += '<td>' + regions[0] + '</td>';
+                    for (var j = 0; j < 12; j++) {
+                        html += '<td>' + data[0].sale[j] + '</td>';
+                    }
+                    html += '</tr>';
+                }else if(products.length > 1){
+                    html = getTableHead('地区','商品');
+                    html += '<tr><td rowspan="'+ products.length +'">'+ regions[0] + '</td>';
+                    html += '<td>' + products[0] + '</td>';
+                    for (var j = 0; j < 12; j++) {
+                        html += '<td>' + data[0].sale[j] + '</td>';
+                    }
+                    for (var e = 1; e < products.length; e++) {
+                        html += '<tr><td>' + products[e] + '</td>';
+                        for (var j = 0; j < 12; j++) {
+                            html += '<td>' + data[e].sale[j] + '</td>';
+                        }
+                        html += '</tr>';
+                    }
+                    html += '</tr>';
+                }
+            }
+            osaletable.innerHTML = html;
+        }
+        ocheckAllProduct.onclick = function () {
+            checkAll(all_product);
+        }
+        ocheckAllRegion.onclick = function () {
+            checkAll(all_region);
+        }
+        owrap.onclick = function () {
+            revision();
+            var products = getCheckedValue(all_product);
+            var regions = getCheckedValue(all_region);
+            var data = getData(products, regions);
+            showTable(data);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历</title>
+</head>
+
+<body>
+    <select id="year-select" onchange="setDays(); show(this.options[this.options.selectedIndex].value)">
+        <!-- 年份 -->
+    </select>
+
+    <select id="month-select" onchange="setDays(); show(this.options[this.options.selectedIndex].value)">
+        <!-- 月份 -->
+    </select>
+
+    <select id="day-select" onchange="show(this.options[this.options.selectedIndex].value)">
+        <!-- 日期 -->
+    </select>
+
+    <select id="hour-select" onchange="show(this.options[this.options.selectedIndex].value)">
+        <!-- 小时 -->
+    </select>
+
+    <select id="minite-select" onchange="show(this.value)">
+        <!-- 分钟 -->
+    </select>
+
+    <select id="second-select" onchange="show(this.options[this.options.selectedIndex].value)">
+        <!-- 秒 -->
+    </select>
+
+    <p id="result-wrapper"></p>
+
+    <script>
+        var oyear_select = document.getElementById('year-select');
+        var omonth_select = document.getElementById('month-select');
+        var oday_select = document.getElementById('day-select');
+        var ohour_select = document.getElementById('hour-select');
+        var ominite_select = document.getElementById('minite-select');
+        var osecond_select = document.getElementById('second-select');
+        var oresult_wrapper = document.getElementById('result-wrapper');
+        function setDays(){
+            var selected_year =  parseInt(oyear_select.value);
+            var selected_month = parseInt(omonth_select.value);
+            getdays(selected_year,selected_month);
+        }
+        function show(obj) {
+            var selected_year =  parseInt(oyear_select.value);
+            var selected_month = parseInt(omonth_select.value);
+            var selected_day = parseInt(oday_select.value);
+            var selected_hour = parseInt(ohour_select.value);
+            var selected_minite = parseInt(ominite_select.value);
+            var selected_second = parseInt(osecond_select.value);
+            var nowtime = new Date();
+            console.log(nowtime)
+            var settime = new Date(selected_year, selected_month - 1,selected_day,selected_hour,selected_minite,selected_second);
+            var time1 = nowtime.getTime();
+            var time2 = settime.getTime();
+            
+            var str = selected_year +'年'+ check(selected_month) +'月'+ check(selected_day) +'日 星期'+ settime.getDay() + ' '+ 
+                    check(selected_hour) +':'+ check(selected_minite) +':'+ check(selected_second);
+
+            var isPassed = time1 - time2 > 0;
+            var diff = Math.abs(time1 - time2);
+
+            var html = '';
+            if(isPassed){
+                html += '现在距离'+ str + '已经过去';
+            }else{
+                html += '现在距离'+ str + '还有';
+            }
+            oresult_wrapper.innerHTML = html + 
+                Math.floor(diff/86400000) +'天' + 
+                Math.floor((diff%86400000)/3600000) +'小时'+ 
+                Math.floor((diff%3600000)/60000) +'分' +
+                (diff%60000)/1000 +'秒';
+            
+        }
+        function getyears(start, end) {//获取所需要的年份
+            for (var i = start; i <= end; i++) {
+                oyear_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function getmonth() {
+            for (var i = 1; i <= 12; i++) {
+                omonth_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function getdays(year, month) {
+            var days = 31;
+            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                days  = 30;
+            }else if(month == 2){
+                days = 28;
+                if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)){
+                    days = 29;
+                }
+            }
+            for (var i = 1; i <= days; i++) {
+                oday_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function gethours() {
+            for (var i = 0; i <= 23; i++) {
+                ohour_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function getminites() {
+            for (var i = 0; i <= 59; i++) {
+                ominite_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function getseconds() {
+            for (var i = 0; i <= 59; i++) {
+                osecond_select.innerHTML += '<option value="' + i + '">' + i + '</option>';
+            }
+        }
+        function check(n){
+            if(n < 10){
+                n = '0' + n;
+            }
+            return n;
+        }
+        getyears(2000, 2032);
+        getmonth();
+        getdays(2000,1);
+        gethours();
+        getminites();
+        getseconds();
+        show();
+
+
+        
+
+
+
+
+    </script>
+</body>
+
+</html>

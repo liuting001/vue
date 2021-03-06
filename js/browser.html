@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <li>文本内容文本内容文本内容文本内容 <button id="btn">删除</button></li>
+    <script>
+        var obtn = document.getElementById('btn');
+        var oli = document.getElementsByTagName('li')[0];
+        obtn.onclick = function(){
+            var del = confirm('是否删除当前内容');
+            if(del){
+                console.log(del);
+                console.log(oli);
+                oli.remove();
+            }
+        }
+    </script> -->
+
+    <!-- <div id="box">第一页</div>
+    <button id="btn">打开新页面</button>
+    <button id="btn2">关闭页面</button>
+    <script>
+        var bd;
+        var obtn = document.getElementById('btn');
+        var obtn2 = document.getElementById('btn2');
+        obtn.onclick = function(){
+            bd = window.open('https://www.baidu.com','baidu','width=800px,height=500px,left=500px,top=200px');  
+        }
+        obtn2.onclick = function(){
+            bd.close();
+        }
+        console.log(window.navigator.appVersion) ;
+    </script> -->
+
+
+    <!-- <script>
+        var obtn = document.getElementById('btn');
+        var date = new Date();
+        document.write(date);
+        setInterval(() => {
+            window.location.reload();
+        }, 1000);
+    </script> -->
+
+
+
+    
+    <!-- <script>
+        var mainpath = window.location.protocol + '//' + window.location.host + '/';
+        console.log(mainpath);
+        var item  = window.location.pathname.substr(1).split('/');
+        console.log(item);
+        var str = '<a href="'+ mainpath +'">首页</a>';
+        var paths = [];
+        paths.push(str);
+        for(var i=0; i<item.length; i++){
+           if(i<item.length-1){
+               mainpath += item[i] + '/';
+           }else{ 
+               mainpath += item[i]
+           }
+           str += ' -> <a href="'+ mainpath +'">'+item[i] +'</a>'
+        }
+        document.write(str);
+    </script> -->
+
+
+    <!-- <button>后退</button> -->
+    <!-- <a href="./browser1.html"></a> -->
+    <!-- <button>前进</button> -->
+    <!-- <script>
+        // var oa = document.getElementsByTagName('a')[0];
+        var obtn1 = document.getElementsByTagName('button')[0];
+        var obtn2 = document.getElementsByTagName('button')[1];
+        obtn1.onclick = function(){
+            window.history.back();
+        }
+        obtn2.onclick = function(){
+            window.history.forward();
+        }
+    </script> -->
+    <script>
+           function foo() {
+                setTimeout(() => {
+                    console.log(this.a)
+                }, 100)
+            }
+            var obj = {
+                a: 2
+            }
+            foo.call(obj)  //输出多少？
+    </script>
+</body>
+</html>

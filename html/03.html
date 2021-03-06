@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>定时器 随机抽奖</title>
+        <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        body,ul,li,button{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            border: 0px;
+        }
+        .wrap{
+            width: 300px;
+            margin: 50px auto;
+            text-align: center;
+            position: relative;
+        }
+        #start,#stop{
+            margin: 50px;
+        }
+        #ul1{
+            width: 301px;
+            height: 301px;
+            border-left: 1px solid black;
+            border-top: 1px solid black;
+        }
+        #ul1 li{
+            width: 100px;
+            height: 100px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            line-height: 100px;
+            float: left;
+        }
+        #tip{
+            display: none;
+            background-color:rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .content{
+            width: 500px;
+            height: 200px;
+            text-align: center;
+            line-height: 50px;
+            margin: 100px auto;
+            background-color: #fff;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <button id="start">开始抽奖</button>
+            <ul id="ul1">
+                <li>111</li>
+                <li>222</li>
+                <li>很遗憾</li>
+                <li>444</li>
+                <li>555</li>
+                <li>666</li>
+                <li>很遗憾</li>
+                <li>888</li>
+                <li>999</li>
+            </ul>
+        </div>
+        <div id="tip">
+            <div class="content">
+                <div class="titile">提示</div>
+                <div id="info">恭喜中奖了</div>
+                <button id="btn">确认</button>
+            </div>
+        </div>
+        
+        <script>
+            var oStart = document.getElementById('start');
+            var oTip = document.getElementById('tip');
+            var oInfo = document.getElementById('info');
+            var oLi = document.getElementsByTagName('li');
+            var obtn = document.getElementById('btn');
+            var n = 0; 
+            var e = 0; 
+            timer = null;
+            var randomInt = 0;
+
+            oStart.onclick = function(){
+                n = 0;
+                randomInt = getRandomInt(0,8);
+                clearInterval(timer);
+                timer = setInterval(num,100);
+            }
+            obtn.onclick = function(){
+                oTip.style.display = 'none';
+            }
+
+            function num(){
+                for(var i=0; i<oLi.length; i++){
+                    oLi[i].style.backgroundColor  = 'white';
+                }
+                e = n % 9;
+                oLi[e].style.backgroundColor = 'red';
+                n++; 
+
+                if(randomInt == e && n>=oLi.length*3){
+                    clearInterval(timer);
+                    oTip.style.display = 'block';
+                    if(oLi[e].innerText == '很遗憾'){
+                        oInfo.innerText = oLi[e].innerText+',未抽中！';
+                    }else{
+                        oInfo.innerText = '恭喜您，抽中了'+oLi[e].innerText;
+                    }
+                }
+            }
+            function getRandomInt(min,max){
+                return Math.floor(Math.random()*(max-min+1)+min)
+            }
+        </script>
+    </body>
+</html>

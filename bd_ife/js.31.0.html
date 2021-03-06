@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单选</title>
+    <style>
+        #saletable{
+            border: 1px solid black;
+        }
+        #saletable td{
+            border: 1px solid black;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="product" onchange="show(this.value)"> 
+        <option value="手机" selected>手机</option>
+        <option value="笔记本">笔记本</option>
+        <option value="智能音箱">智能音箱</option>
+    </select>
+    <select id="region" onchange="show(this.value)">
+        <option value="华东" selected>华东</option>
+        <option value="华北">华北</option>
+        <option value="华南">华南</option>
+    </select> 
+    <table id="saletable">
+    </table>
+    <script>
+        let sourceData = [{
+            product: "手机",
+            region: "华东",
+            sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+        }, {
+            product: "手机",
+            region: "华北",
+            sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+        }, {
+            product: "手机",
+            region: "华南",
+            sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+        }, {
+            product: "笔记本",
+            region: "华东",
+            sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+        }, {
+            product: "笔记本",
+            region: "华北",
+            sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+        }, {
+            product: "笔记本",
+            region: "华南",
+            sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+        }, {
+            product: "智能音箱",
+            region: "华东",
+            sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+        }, {
+            product: "智能音箱",
+            region: "华北",
+            sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+        }, {
+            product: "智能音箱",
+            region: "华南",
+            sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+        }]
+        var oproduct = document.getElementById('product');
+        var oregion = document.getElementById('region');
+        var omonth = document.getElementById('month');
+        var osaletable = document.getElementById('saletable');
+        var data = [];
+        getTableHead();
+        showTable(getData(oproduct.value,oregion.value));
+        function show(){
+            getTableHead();
+            // console.log('oproduct.value:' + oproduct.value + ';' + 'oregion.value:' + oregion.value)
+            showTable(getData(oproduct.value,oregion.value));
+        }
+        function getTableHead(){
+            osaletable.innerHTML = '<tr>'+
+            '<td>商品</td>'+
+            '<td>地区</td>'+
+            '<td>1月</td>'+
+            '<td>2月</td>'+
+            '<td>3月</td>'+
+            '<td>4月</td>'+
+            '<td>5月</td>'+
+            '<td>6月</td>'+
+            '<td>7月</td>'+
+            '<td>8月</td>'+
+            '<td>9月</td>'+
+            '<td>10月</td>'+
+            '<td>11月</td>'+
+            '<td>12月</td>'+
+          '</tr>'
+        }
+        function getData(pro,reg){
+            data = [];
+            for (var i = 0; i < sourceData.length; i++) {
+                if (sourceData[i].product == pro && sourceData[i].region == reg) {
+                    data.push(sourceData[i])
+                }
+            }
+            return data;
+        }
+        function showTable(data){
+            for(var i=0; i < data.length; i++ ){
+                osaletable.innerHTML += '<tr><td>'+ data[i].product +'</td><td>'+ data[i].region +'</td></tr>'
+            }
+            for(var i = 0; i < 12; i++){
+                for(var m=0; m<osaletable.children.length-1; m++){
+                    osaletable.children[m+1].children[0].innerHTML += '<td>'+ data[m].sale[i] +'</td>';
+                }
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

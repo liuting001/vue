@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>定时器  多个匀速移动-</title>
+    <style type="text/css">
+    li{
+        width: 100px;
+        height: 100px;
+        background-color:green;
+        position: absolute;
+        list-style: none;
+    }
+    </style>
+<body>
+   <ul>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+   </ul>
+   <script>
+        function getStyle(obj, attr){ return window.getComputedStyle ? getComputedStyle(obj)[attr]: obj.currentStyle[attr] }
+        
+        function mover(box){
+            this.timer = 0;
+            this.box = box;
+        }
+        function callback(that){
+            that.move(-21,100,'left',10);
+        }
+        mover.prototype.move = function(step,target,derection,speed,callback){
+            var timer = this.timer;
+            var box = this.box;
+            if(box.moving === true){
+                return;
+            }
+            box.moving =true;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                var n = parseInt( getStyle(box,derection)) + step;
+                if((step>0 && n>target) || (step<0 && n<target)){
+                    clearInterval(timer);
+                    n = target;
+                    box.moving =false;
+                }
+                box.style[derection] = n + 'px';
+                if(n == target){
+                    callback && callback(this);
+                }      
+            }, speed);   
+        }
+        var ali = document.getElementsByTagName('li');
+        for(var i=0;i<ali.length;i++){
+                ali[i].style.top = i * 120 + "px";
+            ali[i].onmouseover = function(){
+                var newMover = new mover(this);
+                newMover.move(21,1000,'left',10,callback);
+            }
+        }
+
+   </script>
+</body>
+</html>

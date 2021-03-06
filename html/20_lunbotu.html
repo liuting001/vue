@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="mystyle.css">
+    <style>
+        #container{
+            width: 100%;
+            max-height: 600px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .swiper{
+            display: none;
+        }
+        .swiper img{
+            width: 100%;
+        }
+        #btn-group{
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        #btn-group span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: white;
+            margin-left: 5px;
+        }
+        #btn-group .btn-switch{
+            width: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- 轮播图 -->
+        <div class="swiper" style="display: block;">
+            <a href=""><img src="./image/banner1.jpg" alt=""></a>
+        </div>
+        <div class="swiper">
+            <a href=""><img src="./image/banner2.jpg" alt=""></a>
+        </div>
+        <div class="swiper">
+            <a href=""><img src="./image/banner3.png" alt=""></a>
+        </div>
+        <div id="btn-group">
+            <span class="btn-switch"></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script>
+        // var a_span = document.getElementsByTagName('span');
+        // var a_swiper = document.getElementsByClassName('swiper');
+        // var o_container = document.getElementById('container');
+        // var timer = null;
+        // var index = 0;   //背景图序号
+        // var i = 0;       //计数器
+
+        // function autoplay(){
+        //     timer = setInterval(function(){
+        //         i = i + 1;
+        //         index = (i % a_swiper.length);
+        //         change(index);
+        //     },1000);
+        // }
+        // function change(dex){
+        //     for(var m=0;m<a_swiper.length;m++){
+        //             a_swiper[m].style.display = 'none'; 
+        //             a_span[m].style.width = '10px';  
+        //         }
+        //         a_swiper[dex].style.display = 'block';
+        //         a_span[dex].style.width = '25px'; 
+        // }
+        // function fn_mouse (){
+        //     for(let n=0;n<a_span.length;n++){
+        //         a_span[n].onmouseover = function(ev){
+        //             clearInterval(timer);
+        //             change(n);
+        //             i = n;
+        //             ev = ev || event;
+        //             ev.stopPropagation();
+        //         }
+        //         a_span[n].onmouseout = function(ev){
+        //             autoplay();
+        //             ev = ev || event;
+        //             ev.stopPropagation();
+        //         }
+        //     }
+        //     o_container.onmouseover = function(ev){
+        //         clearInterval(timer);
+                
+        //     }
+        //     o_container.onmouseout = function(ev){
+        //         autoplay();
+        //     }
+        // }
+        // autoplay();
+        // fn_mouse();
+
+
+        //面对对象
+        function swiper(){
+            this.a_span = document.getElementsByTagName('span');
+            this.a_swiper = document.getElementsByClassName('swiper');
+            this.o_container = document.getElementById('container');
+            this.timer = null;
+            this.index = 0;   //背景图序号
+            this.i = 0;       //计数器
+        }
+        swiper.prototype.change = function(dex){
+            for(var m=0;m<this.a_swiper.length;m++){
+                this.a_swiper[m].style.display = 'none'; 
+                this.a_span[m].style.width = '10px';  
+            }
+            this.a_swiper[dex].style.display = 'block';
+            this.a_span[dex].style.width = '25px'; 
+        }
+        swiper.prototype.autoplay = function(){
+            var that = this;
+            this.timer = setInterval(function(){
+                that.i = that.i + 1;
+                that.index = (that.i % that.a_swiper.length);
+                that.change(that.index);
+            },1000);
+        }
+        swiper.prototype.fn_mouse = function(){
+            var that = this;
+            for(let n=0;n<this.a_span.length;n++){
+                this.a_span[n].onmouseover = function(ev){
+                    clearInterval(that.timer);
+                    that.change(n);
+                    that.i = n;
+                    ev = ev || event;
+                    ev.stopPropagation();
+                }
+                this.a_span[n].onmouseout = function(ev){
+                    that.autoplay();
+                    ev = ev || event;
+                    ev.stopPropagation();
+                }
+            }
+            this.o_container.onmouseover = function(ev){
+                clearInterval(that.timer);   
+            }
+            this.o_container.onmouseout = function(ev){
+                that.autoplay();
+            }
+        }
+        swiper.prototype.init = function(){
+            this.autoplay();
+            this.fn_mouse();
+        }
+        var swiper1 = new swiper();
+        swiper1.init();
+    </script>
+</body>
+</html>

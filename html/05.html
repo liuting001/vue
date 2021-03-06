@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>定时器  轮播图</title>
+        <meta charset="utf8"/>
+        <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        body,ul,li,button{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            border: 0px;
+        }
+        #wrap{
+            width: 600px;
+            height: 200px;
+            margin: 200px auto;
+        }
+        button{
+            background-color: green;
+            width: 200px;
+            height: 50px;
+            display: inline-block;
+        }
+        .active{
+            background-color:red;
+        }
+        #box{
+            width: 600px;
+            height: 300px;
+            background-color: gray;
+            line-height: 100px;
+            text-align: center;
+            font-size: 24px;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+        <button class="active">btn1</button><button >btn2</button><button >btn3</button>
+        <div id="box">1111</div>
+        <div id="box" style="display: none;">2222</div>
+        <div id="box" style="display: none;">3333</div>
+        </div>
+        
+        <script>
+            var abtn = document.getElementsByTagName('button');
+            var owrap = document.getElementById('wrap');
+            var abox = owrap.getElementsByTagName('div');
+            var nowindex = 0;
+            var timer;
+            function recover(abtn,abox){
+                for(var n=0; n<abtn.length; n++){
+                    abtn[n].style.backgroundColor = 'green';
+                    abox[n].style.display = 'none';
+                    }
+            }
+            function autoplay(){
+                timer = setInterval(() => {
+                    recover(abtn,abox);
+                    nowindex = nowindex % abtn.length;
+                    abtn[nowindex].style.backgroundColor = 'red';
+                    abox[nowindex].style.display = 'block';
+                    nowindex++;
+                }, 1000);
+            }
+            function initialize(abtn,abox){
+                for(var i=0; i<abtn.length; i++){
+                    abtn[i].index = i;
+                    abtn[i].onmouseover = function(){
+                        clearInterval(timer);
+                        recover(abtn,abox);
+                        abtn[this.index].style.backgroundColor = 'red'
+                        abox[this.index].style.display = 'block';
+                        nowindex = this.index + 1;
+                    }
+                    abtn[i].onmouseout = autoplay;
+                }
+            }
+            initialize(abtn,abox);
+            autoplay();
+            
+            
+            
+           
+            
+        </script>
+    </body>
+</html>

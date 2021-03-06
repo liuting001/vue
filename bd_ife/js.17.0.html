@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17 十进制转化为二进制</title>
+</head>
+<body>
+    <input id="number" type="number" placeholder="输入十进制非负整数">
+    <input id="bit" type="number" placeholder="输入二进制长度">
+    <button id="trans">转换为二进制</button>
+    <div id="result">结果</div>
+    <script>
+        // 实现点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+        // 转化显示的二进制数宽度 = bin-bit中输入的数字宽度，例如
+        // number为5，bit为5，则转化后数字为00101
+        // 如果bin-bit小于转化后的二进制本身位数，则使用原本的位数，如dec-number为5，bin-bit为2，依然输出101，但同时在console中报个错
+        var onumber = document.getElementById('number');
+        var obit = document.getElementById('bit');
+        var otrans = document.getElementById('trans');
+        var oresult = document.getElementById('result');
+        function conversion(num,b){
+            var map = [0,1];
+            var arr = [];
+            var item;  //记录余数
+            while(num != 0){
+                item = num % 2;
+                num = (num - item)/2; //记录整除数，赋值给num，继续取余。
+                arr.unshift(map[item]);     
+            }
+            if(arr.length > b){
+                console.log('输入的字节太小')
+            }else if(arr.length <= b){
+                while (arr.length < b) {
+                    arr.unshift(0);
+                }
+            }
+            return arr.join('');   
+        }
+
+        otrans.onclick = function(){
+            if(!isNaN(onumber.value) && onumber.value > 0 && onumber.value % 1 === 0 ){
+                oresult.innerHTML = conversion(onumber.value,obit.value);
+            }
+        }
+
+    </script>
+</body>
+</html>

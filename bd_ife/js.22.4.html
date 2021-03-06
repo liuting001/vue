@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队头在最右侧</title>
+</head>
+<body>
+    <input id="queue-input" type="text">
+    <p id="queue-cont">队列内容：apple-&gt;pear</p>
+    <button id="in-btn">入队</button>
+    <button id="out-btn">出队</button>
+    <button id="font-btn">打印队头元素内容</button>
+    <button id="empty-btn">判断队列是否为空</button>
+    
+    <script>
+        // 实现如阅读材料中，队列的相关入队、出队、获取队头、判空的操作
+        // 队头对应数组中'最后一个元素'
+        // 入队和出队操作后，需要在 id 为 queue-cont 的 p 标签中更新显示队列中的内容，队头在最'右侧'，中间用 -> 连接（练习使用数组的join方法）
+        var queue = ["apple", "pear"];
+        var oqueue_input = document.getElementById('queue-input');
+        var oqueue_cont = document.getElementById('queue-cont');
+        var oin_btn = document.getElementById('in-btn');
+        var oout_btn = document.getElementById('out-btn');
+        var ofont_btn = document.getElementById('font-btn');
+        var oempty_btn = document.getElementById('empty-btn');
+        oin_btn.onclick = function(){//入队
+            queue.unshift(oqueue_input.value);//在首位添加一个元素
+            oqueue_cont.innerHTML ='队列内容：'+ queue.join('-&gt;') ;
+        }
+        oout_btn.onclick = function(){//出队
+            queue.pop();//末尾删除一个元素
+            oqueue_cont.innerHTML ='队列内容：'+ queue.join('-&gt;') ;
+        }
+        ofont_btn.onclick = function(){//打印队头元素内容
+            console.log(queue[queue.length-1])
+        }
+        oempty_btn.onclick = function(){//判断队列是否为空
+            if(queue.length == 0){
+                console.log('队列为空')
+            }else{
+                console.log('队列不为空')
+            }
+        }
+
+    </script>
+</body>
+</html>

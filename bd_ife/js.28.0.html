@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul,
+        li,
+        input {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            list-style: none;
+        }
+
+        #ipt {
+            border-radius: 0px;
+            width: 200px;
+            height: 20px;
+            font-size: 16px;
+            line-height: 20px;
+            border: solid black 1px;
+        }
+
+        #postfix {
+            width: 200px;
+            font-size: 16px;
+            line-height: 20px;
+            border: solid black 1px;
+            display: none;
+        }
+
+        li.hover {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <input type="email" name="" id="ipt">
+        <ul id="postfix">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        var oipt = document.getElementById('ipt');
+        var opostfix = document.getElementById('postfix');
+        var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        function displayTips() { //展示或者隐藏提示
+            if (oipt.value != '') {
+                opostfix.style.display = 'block';
+            } else {
+                opostfix.style.display = 'none';
+            }
+        }
+        function showbg(selectedindex) {//展示被选背景颜色
+            for (var i = 0; i < 5; i++) {
+                opostfix.children[i]['className'] = null;
+            }
+            opostfix.children[selectedindex]['className'] = 'hover';
+        }
+        function showbgByElement(element) {//展示被选背景颜色
+            for (var i = 0; i < 5; i++) {
+                opostfix.children[i]['className'] = null;
+            }
+            element['className'] = 'hover';
+        }
+        function getPre() {
+            var index = -1;
+            var pre = '';
+            if (oipt.value.indexOf('@') != -1) {
+                index = oipt.value.indexOf('@');
+                if (index == oipt.value.length - 1) {
+                    pre = oipt.value;
+                } else {
+                    pre = oipt.value.substring(0, index + 1)
+                }
+            } else {
+                pre = pre = oipt.value + '@';
+            }
+            pre = pre.replace(/ /g, '');
+            return pre;
+        }
+        function getPost() {
+            var index = -1;
+            var post = [];
+            if (oipt.value.indexOf('@') != -1) {
+                index = oipt.value.indexOf('@');
+                if (index < oipt.value.length - 1) {
+                    var tail = oipt.value.substr(index + 1);
+                    for (var i = 0; i < 5; i++) {
+                        if (postfixList[i].indexOf(tail) == 0) {
+                            post.push(postfixList[i]);
+                        }
+                    }
+                }
+            }
+            if (post.length == 0) {
+                post = postfixList;
+            }
+            return post;
+        }
+        var selectedindex = 0;
+        oipt.onkeyup = function (ev) {
+            var ev = event || ev;
+            if (ev.keyCode != 13 && ev.keyCode != 38 && ev.keyCode != 40) {
+                opostfix.innerHTML = '';
+                var post = getPost();
+                for (var n = 0; n < post.length; n++) {
+                    opostfix.innerHTML += '<li>' + getPre() + post[n] + '</li>';
+                }
+                displayTips();
+                selectedindex = 0;
+                showbg(selectedindex);
+            } else {
+                if (opostfix.style.display == 'block') {
+                    switch (ev.keyCode) {
+                        case 13://enter
+                            oipt.value = opostfix.children[selectedindex].innerHTML;
+                            opostfix.style.display = 'none';
+                            oipt.focus();
+                            break;
+                        case 38://up
+                            if (selectedindex == 0) {
+                                selectedindex = 4
+                            } else {
+                                selectedindex = selectedindex - 1;
+                            }
+                            break;
+                        case 40://down
+                            if (selectedindex == 4) {
+                                selectedindex = 0
+                            } else {
+                                selectedindex = selectedindex + 1;
+                            }
+                            break;
+                    }
+                    showbg(selectedindex);
+                }
+            }
+
+        }
+        opostfix.onclick = function (ev) {
+            var ev = event || ev;
+            var tar = ev.target;
+            oipt.value = tar.innerHTML;
+            opostfix.style.display = 'none';
+            oipt.focus();
+        }
+        opostfix.onmouseover = function(ev){
+             ev = event || ev;
+             showbgByElement(ev.target);
+        };
+        oipt.focus();
+        document.onkeyup = function(ev){
+            var ev = event || ev;
+            if(ev.keyCode == 27){
+                oipt.select();
+
+            }
+        }
+        
+
+    </script>
+</body>
+
+</html>

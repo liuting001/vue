@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="mystyle.css">
+    <style>
+        #box1{
+            width: 352px;
+            height: 352px;
+            border: 1px solid black;
+            position: relative;
+            left: 10px;
+            top: 10px;
+        }
+        #box1 img{
+            width: 350px;
+            height: 350px;
+        }
+        #box1 span{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255,255,0,0.5);
+            display: none;
+            z-index: 2;
+        }
+        #box2{
+            width: 402px;
+            height: 402px;
+            border: 1px solid black;
+            position: absolute;
+            left: 400px;
+            top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        #box2 img{
+            width: 1400px;
+            height: 1400px;
+            position: absolute;
+            left: 0px;
+            top: 0px; 
+        }
+    </style>
+</head>
+<body>
+    <div id="box1">
+        <img src="./image/bg01.jpg" alt="">
+        <!-- 遮罩 -->
+        <span id="backdrop"></span>   
+    </div>
+    <div id="box2">
+        <img src="./image/bg01.jpg" alt="">
+    </div>
+    <script>
+        // var obox1 = document.getElementById('box1');
+        // var obox2 = document.getElementById('box2');
+        // var obackdrop = document.getElementById('backdrop');
+        // var oimg2 = obox2.getElementsByTagName('img')[0];
+        // obox1.onmouseover = function(){
+        //     obackdrop.style.display = 'block';
+        //     obox2.style.display = 'block';
+
+        // }
+        // obox1.onmousemove = function(ev){
+        //     var ev = ev || event;
+        //     var L = ev.clientX - this.offsetLeft - obackdrop.offsetWidth/2;
+        //     var T = ev.clientY - this.offsetTop - obackdrop.offsetHeight/2;
+        //     if(L < 0){
+        //         L=0
+        //     }
+        //     if(T < 0){ 
+        //         T=0
+        //     }
+        //     if(L > this.offsetWidth - obackdrop.offsetWidth ){
+        //         L = this.offsetWidth - obackdrop.offsetWidth;
+        //     }
+        //     if(T > this.offsetHeight - obackdrop.offsetHeight){
+        //         T = this.offsetHeight - obackdrop.offsetHeight;
+        //     }
+        //     obackdrop.style.left = L + 'px';
+        //     obackdrop.style.top = T + 'px';
+        //     //比例
+        //     var SL = L / (this.offsetWidth - obackdrop.offsetWidth);
+        //     var ST = T / (this.offsetHeight - obackdrop.offsetHeight);
+        //     oimg2.style.left = -((oimg2.offsetWidth - obox2.offsetWidth) * SL) + 'px';
+        //     oimg2.style.top = -((oimg2.offsetHeight - obox2.offsetHeight) * ST) + 'px';
+        // }
+        // obox1.onmouseout = function(){
+        //     obackdrop.style.display = 'none';
+        //     obox2.style.display = 'none';
+        // }
+
+        //面对对象写放大镜效果
+        function magnifier(){
+            this.obox1 = document.getElementById('box1');
+            this.obox2 = document.getElementById('box2');
+            this.obackdrop = document.getElementById('backdrop');
+            this.oimg2 = this.obox2.getElementsByTagName('img')[0];
+        }
+        magnifier.prototype.init = function(){
+            var that = this;
+            this.obox1.onmouseover = function(ev){
+                that.mouse_over();
+            }
+            this.obox1.onmouseout = function(ev){
+                that.mouse_out();
+            }
+            this.obox1.onmousemove = function(ev){
+                that.mouse_move();
+            }
+        }
+        magnifier.prototype.mouse_over = function(){
+            this.obackdrop.style.display = 'block';
+            this.obox2.style.display = 'block';
+        }
+        magnifier.prototype.mouse_move = function(ev){
+            var ev = ev || event;
+            var L = ev.clientX - this.obox1.offsetLeft - this.obackdrop.offsetWidth/2;
+            var T = ev.clientY - this.obox1.offsetTop - this.obackdrop.offsetHeight/2;
+            if(L < 0){
+                L=0
+            }
+            if(T < 0){ 
+                T=0
+            }
+            if(L > this.obox1.offsetWidth - this.obackdrop.offsetWidth ){
+                L = this.obox1.offsetWidth - this.obackdrop.offsetWidth;
+            }
+            if(T > this.obox1.offsetHeight - this.obackdrop.offsetHeight){
+                T = this.obox1.offsetHeight - this.obackdrop.offsetHeight;
+            }
+            this.obackdrop.style.left = L + 'px';
+            this.obackdrop.style.top = T + 'px';
+            //比例
+            var SL = L / (this.obox1.offsetWidth - this.obackdrop.offsetWidth);
+            var ST = T / (this.obox1.offsetHeight - this.obackdrop.offsetHeight);
+            this.oimg2.style.left = -((this.oimg2.offsetWidth - this.obox2.offsetWidth) * SL) + 'px';
+            this.oimg2.style.top = -((this.oimg2.offsetHeight - this.obox2.offsetHeight) * ST) + 'px';
+        }
+        magnifier.prototype.mouse_out = function(){
+            this.obackdrop.style.display = 'none';
+            this.obox2.style.display = 'none';
+        }
+        var mag1 = new magnifier();
+        mag1.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../mystyle.css">
+    <style>
+        #wrap{
+            width: 1020px;
+            height: 700px;
+            margin:  100px auto;
+            font-size: 36px;
+            text-align: center;
+        }
+        #dustbin{
+            height: 650px;
+            width: 200px;
+            line-height: 600px;
+            background-color: pink;
+            margin: 10px;
+        }
+        ul{
+            width: 780px;
+            text-align: left;
+        }
+        li{
+            height: 100px;
+            margin: 10px;
+        }
+        #box{
+            height: 100px;
+            width: 1000px;
+            background-color: salmon;
+            margin: 10px;
+            line-height: 100px;
+        }
+        #item1,#item3,#item5{
+            background-color: brown;
+        }
+        #item2,#item4,#item6{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="content" class="clearfix">
+            <div id="dustbin" class="left">垃圾箱</div>
+            <ul class="right">
+                <li id="item1" draggable="true">列表1</li>
+                <li id="item2" draggable="true">列表2</li>
+                <li id="item3" draggable="true">列表3</li>
+                <li id="item4" draggable="true">列表4</li>
+                <li id="item5" draggable="true">列表5</li>
+                <li id="item6" draggable="true">列表6</li>
+            </ul>
+        </div>
+        <div id="box">拖到垃圾箱删除列表</div>  
+    </div> 
+   <script>
+       var odustbin = document.getElementById('dustbin');
+       var aLi = document.getElementsByTagName('li');
+       var obox = document.getElementById('box');
+       for(var i=0;i<aLi.length;i++){
+           aLi[i].ondragstart = function(ev){
+               ev = ev || event;
+               ev.dataTransfer.setData('text',this.id);
+           }
+       }
+       odustbin.ondrop = function(ev){
+           ev = ev || event;
+           var item_id = ev.dataTransfer.getData('text');
+           var oli = document.getElementById(item_id);
+           oli.remove();
+           obox.innerHTML= oli.innerText + '被放进了垃圾箱';
+           this.style.color = 'black';
+       }
+       odustbin.ondragover = function(ev){
+        ev = ev || event;
+        ev.preventDefault();
+        
+       }
+       odustbin.ondragenter = function(){
+           this.style.color = 'red';
+       }
+       odustbin.ondragleave = function(){
+           this.style.color = 'black';
+       }
+   </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>定时器 自动书写</title>
+        <meta charset="UTF-8">
+        <style type="text/css" id="style1">
+        </style>
+        <link rel="stylesheet" type="text/css" href="">
+    </head>
+    <body>
+        <div id="text"></div>
+        <div id="tip">
+                <div class="content">
+                    <div class="titile">提示</div>
+                    <div id="info">恭喜中奖了</div>
+                    <button id="btn">确认</button>
+                </div>
+            </div>
+        <script>
+            var ostyle1 = document.getElementById('style1');
+            var otext = document.getElementById('text');
+            var n = 1;
+            var style_text =  `
+                #tip{
+                    display: block;
+                    background-color:rgba(0, 0, 0, 0.5);
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                }
+                .content{
+                    width: 500px;
+                    height: 200px;
+                    text-align: center;
+                    line-height: 50px;
+                    margin: 100px auto;
+                    background-color: #fff;
+                }
+            `;
+            setInterval(function(){
+                otext.innerHTML = style_text.substr(0,n);
+                ostyle1.innerHTML = style_text.substr(0,n);
+                n++;
+            },10)
+               
+        </script>
+    </body>
+</html>

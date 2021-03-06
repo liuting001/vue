@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mystyle.css">
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <style>
+        #box1,#box2{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 100px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+        // var obox = document.getElementById('box');
+        // var dx = 0;
+        // var dy = 0;
+        // obox.onmousedown = function(ev){
+        //     ev = ev || event;
+        //     dx = ev.clientX - obox.offsetLeft;
+        //     dy = ev.clientY - obox.offsetTop;
+        //     document.onmousemove = function(ev){
+        //        fn_move(ev);
+        //     }
+        //     document.onmouseup = function () {
+        //        fn_up();
+        //     }
+        // }
+        // function fn_move(ev){
+        //     var ev = ev || event;
+        //     obox.style.left = ev.clientX - dx +'px';
+        //     obox.style.top = ev.clientY - dy +'px';
+        // }
+        // function fn_up(){
+        //     document.onmousemove = null;
+        //     document.onmouseup = null;
+        // }
+
+        //面对对象拖拽
+        function mover(box){
+            this.obox = document.getElementById(box);
+            this.dx = 0;
+            this.dy = 0;
+        }
+        mover.prototype.fn_move = function(ev){
+            var ev = ev || event;
+            this.obox.style.left = ev.clientX - this.dx +'px';
+            this.obox.style.top = ev.clientY - this.dy +'px';
+            console.log(this.obox.style.top);
+        }
+        mover.prototype.fn_up = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        mover.prototype.fn_down = function(ev){
+            ev = ev || event;
+            this.dx = ev.clientX - this.obox.offsetLeft;
+            this.dy = ev.clientY - this.obox.offsetTop;
+            console.log( this.obox.offsetTop)
+            var that = this;
+            document.onmousemove = function(ev){
+               that.fn_move(ev);
+            }
+            document.onmouseup = function () {
+               that.fn_up();
+            }
+            ev.stopPropagation();
+        }
+        mover.prototype.init = function(){
+            var that = this;
+            this.obox.onmousedown = function(ev){
+                that.fn_down(ev);
+            }
+        }
+
+
+        var mymover1 = new mover('box1');
+        mymover1.init();
+        var mymover2 = new mover('box2');
+        mymover2.init();
+        
+    </script>
+</body>
+</html>

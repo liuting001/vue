@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var str = 'hello,python!你好\nJavascript_,123,javA';
+        // console.log(str);
+        // var reg1 = /\d/g;
+        // var reg2 = /[A-Z]/g;
+        // var reg3 = /[hp2r]/g;
+        // var reg4 = /[^a-z2]/g;
+        // var reg5 = /\D/g;
+        // var reg6 = /\w/g;
+        // var reg7 = /[^\n]/g;
+        // console.log('字符串中的每个数字',str.match(reg1));
+        // console.log('字符串中的大写字母',str.match(reg2));
+        // console.log('字符串中的 h、p、2、r 字符',str.match(reg3));
+        // console.log('除了小写字母和2以外的字符',str.match(reg4));
+        // console.log('非数字的字符',str.match(reg5));
+        // console.log('字母和数字以及下划线的字符',str.match(reg6));
+        // console.log('所有的字符,除了\\n',str.match(reg7));
+
+        var reg1 = /^\d$/;
+        var reg2 = /^\d{n}$/;
+        var reg3 = /^\d{n,}$/;
+        var reg4 = /^\d{m,n}$/;
+        var reg5 = /^([1-9]\d*|0)$/;
+        var reg6 = /^[a-zA-Z\d]+$/;
+        var reg7 = /^[a-zA-Z]+$/;
+        var reg8 = /^[a-z]+$/;
+        var reg9 = /^[A-Z]+$/;
+        var reg10 = /^\d{3,4}-\d{7,8}$/
+        var reg11 = /^[1-9](\d{14}|\d{17})$/;
+        var reg12 = /^[a-zA-Z]\w{5,17}$/;
+        var reg12 = /^\d{3}\.\d{3}\.\d{3}\.[0-9]$/;
+        var str = '192.169.101.1';
+        console.log(reg12.test(str))
+    </script> 
+</body>
+</html>

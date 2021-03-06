@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function str_to_number(str){
+        //     alert(str.split(''));
+        // }
+        // str_to_number('524');
+
+
+
+        // function get_max(){
+        //     console.log(arguments);
+        //     var arr = [].sort.call(arguments,function(a,b){
+        //         return a-b;
+        //     })
+        //     console.log(arr);
+        //     console.log(arr[0])
+        // }
+        // var res = get_max(5,14,8,1);
+
+
+
+        // function argsum(){
+        //     console.log(arguments);
+        //     return [].reduce.call(arguments,function(sum,value){
+        //         return sum + value;
+        //     },0)
+        // }
+        // console.log(argsum(1,9,8,2,10));
+
+        // let argsum = (...arr) => arr.reduce( (sum,value) => sum + value);
+        // console.log(argsum(1,2,3));
+
+
+
+        // function fn(a, b, c) {
+        //     if(a === undefined){
+        //         a = 0;
+        //     }
+        //     if(b === undefined){
+        //         b = 0;
+        //     }
+        //     if(c === undefined){
+        //         c = 0;
+        //     }
+        //     return a + b + c
+        // }
+        // console.log(fn(10,10));
+
+        // function fn(settings){
+        //     var defaultsettings = {
+        //         name:'小夏',
+        //         age: 20,
+        //         weight: 109,
+        //         height: 165,
+        //     }
+        //     var options = Object.assign(defaultsettings,settings);
+        //     console.log(options)
+        // }
+        // fn({
+        //     age: 25,
+        // })
+        
+
+
+        // function add(x){
+        //     return function (y){
+        //         return function (z){
+        //             return x+y+z
+        //         }
+        //     }
+        // }
+        // var a = add(2)(3)(4);
+        // console.log(a)  
+
+
+
+        // var a = 1
+        // function fn1(){
+        //     var a = 2
+        //     function fn2(){
+        //         console.log(a)
+        //     }
+        //     function fn3(){
+        //         var a = 4
+        //         fn2()
+        //     }
+        //     return fn3
+        // }
+        // var fn = fn1()
+        // fn() //输出多少
+
+
+
+        // var a = 1
+        // function fn1() {
+        //     var a = 2
+        //     function fn3() {
+        //         var a = 4
+        //         fn2()
+        //     }
+        //     return fn3
+        // }
+        // function fn2() {
+        //     console.log(a)
+        // }
+        // var fn = fn1()
+        // fn() //输出多少 
+
+
+
+        // function fn(n){
+        //     if(n==1) return 1;
+        //     return n * fn(n-1)
+        // }
+        // fn(3)
+        // console.log(fn(5))
+
+        // function buy(name,goods,fn){
+        //     fn && fn(name,goods)
+        // }
+        // buy('xiaoming', 'apple', function (name,goods) {
+        //         alert("shopping finish");
+        //     });
+
+        
+
+        // var $ = {
+        //     each:function(data,fn){
+        //         for(var i = 0; i < data.length; i++){
+        //             fn && fn(data[i], i)
+        //         }
+        //     }
+        // }
+        // $.each([5,4,3,2,1],function (item, i){
+        //     alert(item)
+        // });
+
+
+        // function fn(data, fn1){
+        //     var data1  = [];
+        //     for(var i=0; i<data.length; i++){
+        //         fn1 && ( data1[i] = fn1(data[i], i, data)) 
+        //     }
+        //     return data1;
+        // }
+        // var a = fn([1, 2, 3, 4], function (item, i, data) {
+        //         if (item > 2) {
+        //             return item + 1
+        //         } else {
+        //             return item - 1
+        //         }
+        //     })
+        //     console.log(a)  // [0, 1, 4, 5]
+
+
+
+        // function foo(){
+        //     function fn1() {
+        //         return 3;
+        //     };
+        //     function fn2() {
+        //         return 8;
+        //     };
+        //     var bar = fn1;
+        //     var res = bar();
+        //     return res;
+        //     var bar = fn2;
+        // }
+        //     alert(foo());
+
+
+
+        // function foo() {
+        //         return bar();
+        //         var bar = function () {
+        //             return 3;
+        //         };
+        //         var bar = function () {
+        //             return 8;
+        //         };
+        //     }
+        //     alert(foo());
+
+    </script>
+</body>
+</html>

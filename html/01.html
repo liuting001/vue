@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>定时器  发送验证码</title>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button id="btn">发送验证码</button>
+        <script>
+            var obtn = document.getElementById('btn');
+            var n = 9;
+            var timer = null;
+            obtn.onclick = function(){
+                obtn.disabled = true;
+                timer = setTimeout(time,1000);
+            }
+            //设定定时器
+            function time(){
+                obtn.innerHTML = n + 's后重发';
+                n--;
+                if (n == 0) {
+                    obtn.innerHTML = '点击发送验证码';
+                    n = 9;
+                    obtn.disabled = false;
+                } else {
+                    setTimeout(time, 1000);
+                }
+            }
+                
+        
+        </script>
+    </body>
+</html>

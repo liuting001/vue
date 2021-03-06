@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #wrap{
+        width: 100px;
+        height: 100px;
+        margin: 100px auto;
+    }
+    </style>
+</head>
+<body>
+
+    <!-- <button id="btn">点击获取ip</button>
+         <div id="box">接收ip</div> -->
+    <!-- <div id="wrap">
+        <button id="btn1">-</button>
+        <input id="ipt" type="text" value="1">
+        <button id="btn2">+</button>
+        <div id="box">合计：¥100.0</div>
+    </div> -->
+    
+    <script>
+        //求弧长
+        // function lang(r,n){
+        //     var l =( r*n*Math.PI)/180;
+        //     return l;
+        // }
+        // console.log(lang(2,90))
+
+        //三角形判定
+        // function triangle(a,b,c){
+        //     var arr = [a,b,c];
+        //     arr.sort((m,n) => m - n);
+        //     console.log(arr);
+        //     if(arr[0] + arr[1] > arr[2] && arr[2] - arr[0] < arr[1]){
+        //         console.log('三边可以构成三角形。');
+        //         if(arr[0] * arr[0] + arr[1] * arr[1] > arr[2] * arr[2] ){
+        //             console.log('锐角三角形');
+        //         }else if(arr[0] * arr[0] + arr[1] * arr[1] < arr[2] * arr[2] ){
+        //             console.log('钝角三角形');
+        //         }else{
+        //             console.log('直角三角形');
+        //         }
+        //     }else{
+        //         console.log('三边不能构成三角形');
+        //     }
+        // }
+        // triangle(11,9,7)
+
+
+        // function getHypotenuse(num1,num2){
+        //     var n = num1*num1 + num2*num2;
+        //     return Math.sqrt(n);
+        // }
+        // console.log(getHypotenuse(4,3))
+
+
+        //生成一个n-m之间的随机整数
+        // function getRandomInt(min,max){return Math.floor(Math.random()*(max-min+1)+min)}
+        // var obtn = document.getElementById('btn');
+        // var obox = document.getElementById('box');
+        // //生成一个4位数的随机验证码
+        // obtn.onclick = function(){
+        //     var m1 = getRandomInt(0,255);
+        //     var m2 = getRandomInt(0,255);
+        //     var m3 = getRandomInt(0,255);
+        //     var m4 = getRandomInt(0,255);
+        //     var arr = [m1,m2,m3,m4];
+        //     var str = arr.join('.');
+        //     obox.innerHTML = str;
+        // }
+
+        //商品价格合计
+        // var owrap = document.getElementById('wrap');
+        // var obtn1 = document.getElementById('btn1');
+        // var obtn2 = document.getElementById('btn2');
+        // var oipt = document.getElementById('ipt');
+        // var obox = document.getElementById('box');
+        // obtn1.onclick = function(){
+        //     if(oipt.value == 0){
+        //         alert('商品已删除')
+        //     }else{
+        //         oipt.value = oipt.value - 1;
+        //     }
+        //     obox.innerHTML = '合计：¥'+ (oipt.value * 100);
+        // }
+        // obtn2.onclick = function(){
+        //     oipt.value = +oipt.value + 1;
+        //     obox.innerHTML = '合计：¥'+ oipt.value * 100;  
+        // }
+        
+
+
+
+        // var obox = document.getElementById('box');
+        // var obtn = document.getElementById('btn');
+        // var arr = ['red','yellow','black','green','pink','white','blue']
+        // function getRandomInt(min,max){return Math.floor(Math.random()*(max-min+1)+min)}
+        // obtn.onclick = function(){
+        //     var i = getRandomInt(0,arr.length-1);
+        //     obox.style.backgroundColor = arr[i];
+        // }
+
+        //10进制的num转换成radix(2-16)进制的数。
+        function change(num,radix){
+            var map = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+            var arr = [];
+            var item;
+            while(num != 0){
+                item = num % radix;
+                num = (num - item)/radix;
+                arr.unshift(map[item]);
+            }
+            return arr.join('');       
+        }
+        // var num = 1130;
+        // console.log(change(num,2)); 
+        // console.log(num.toString(2));
+    </script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="mystyle.css">
+    <style>
+        .dialog{
+            position: absolute;
+            /* left: 300px;
+            top: 300px; */
+            border: 1px solid black;
+            z-index: 2;
+            background-color: white;
+        }
+        .dialog .title{
+            width: 100%;
+            height: 100px;
+            position: relative;
+            background-color: #006666;
+            padding: 25px;
+            font-size: 28px;
+            color: white;
+        }
+        .dialog .title i{
+            border: 1px solid white;
+            padding: 5px;
+            font-size: 16px;
+        }
+        .dialog .content{
+            padding: 10px;
+            font-size: 24px;
+        }
+        
+    </style>
+</head>
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <!-- <div class="dialog">
+        <div class="title" class="clearfix">
+            <span class="left">标题</span>
+            <i class="right">关闭</i>
+        </div>
+        <div class="content">提示内容</div>
+    </div> -->
+    <script>
+        
+        function Dialog(){
+            //默认参数
+            this.oDialog = null;
+            this.settings = {
+                w: 300,
+                h: 300,
+                pos: 'center',
+                title: '登录',
+                text:'内容',
+                index: undefined,
+                backdrop: false,
+                move: false,
+            }
+        }
+        Dialog.prototype.init = function(options){
+            extend(options,this.settings);
+            if(this.data[this.settings.index] == undefined){
+                this.createDialog();
+                this.setpos();
+                this.closeDialog();
+                this.data[this.settings.index] = true;
+            }else{
+                console.log('已有一个对话框');
+            }
+            if(this.settings.backdrop == true){
+                this.creatbackdrop();
+            }
+            if(this.settings.move == true){
+                this.move();
+            }
+        }
+        Dialog.prototype.data = {
+            //存储对话框数据
+            // 0:true,
+            // 1:true,
+            // 2:true,
+        }
+        function extend(parent,child){
+            //合并参数
+            for(var attr in parent){
+                child[attr] = parent[attr]
+            }
+        }
+        Dialog.prototype.createDialog = function(){
+            // 创建弹窗
+            this.oDialog = document.createElement('div');
+            document.body.appendChild(this.oDialog);
+            this.oDialog.className = 'dialog';
+            // 自定义弹窗大小
+            this.oDialog.style.width = this.settings.w + 'px';
+            this.oDialog.style.height = this.settings.h + 'px';
+            this.oDialog.innerHTML = '<div class="title" class="clearfix">'+
+                                     '<span class="left">'+ this.settings.title +'</span>'+
+                                     '<i class="right">关闭</i>'+
+                                     '</div>'+
+                                     '<div class="content">'+ this.settings.text +'</div>'
+                                    ;   
+        }
+        Dialog.prototype.setpos = function(){
+            // 自定义弹窗的位置
+            if(this.settings.pos == 'center'){
+                //设置居中
+                this.oDialog.style.left = (vw() - this.oDialog.offsetWidth) / 2  + 'px';
+                this.oDialog.style.top = (vh() - this.oDialog.offsetHeight) / 2  + 'px';
+            }else if(this.settings.pos == 'right-bottom'){
+                //设置为右下角
+                this.oDialog.style.left = vw() - this.oDialog.offsetWidth + 'px';
+                this.oDialog.style.top = vh() - this.oDialog.offsetHeight + 'px';
+            }
+        }
+        Dialog.prototype.closeDialog = function(){
+            //点击关闭弹窗
+            var oclose = this.oDialog.getElementsByTagName('i')[0];
+            var that = this;
+            oclose.onclick = function(){
+                console.log('点击关闭');
+                document.body.removeChild(that.oDialog);
+                that.data[that.settings.index] = undefined;
+                if(that.settings.backdrop == true){
+                    document.body.removeChild(that.obackdrop);
+                }
+            }
+        }
+        Dialog.prototype.creatbackdrop = function(){
+            //创建背景
+            this.obackdrop = document.createElement('div');
+            this.obackdrop.style.width = vw() + 'px';
+            this.obackdrop.style.height = vh() + 'px';
+            this.obackdrop.style.backgroundColor = 'rgba(0,0,0,0.5)'
+            this.obackdrop.style.position = 'absolute';
+            this.obackdrop.style.left = 0 ;
+            this.obackdrop.style.top = 0 ;
+            document.body.appendChild(this.obackdrop);
+        }
+        Dialog.prototype.move = function(){
+            //设置弹窗可以移动拖拽
+            var that = this;
+            this.oDialog.onmousedown = function (ev) {
+                ev = ev || event;
+                dx = ev.clientX - this.offsetLeft;
+                dy = ev.clientY - this.offsetTop;
+                document.onmousemove = function (ev) {
+                    fn_move(ev);
+                }
+                document.onmouseup = function () {
+                    fn_up();
+                }
+            }
+            function fn_move(ev) {
+                var ev = ev || event;
+                that.oDialog.style.left = ev.clientX - dx + 'px';
+                that.oDialog.style.top = ev.clientY - dy + 'px';
+            }
+            function fn_up() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+        function vw(){
+            //获取可视区的宽:
+            return document.documentElement.clientWidth;
+        }
+        function vh(){
+            //获取可视区的高:
+            return document.documentElement.clientHeight;
+        }
+
+        var abtn = document.getElementsByTagName('button');
+        //按钮1
+        abtn[0].onclick = function(ev){
+            var d1 = new Dialog()
+            d1.init({
+                w:500,
+                h:500,
+                index:0,
+                backdrop:true,
+            }); 
+        }
+        //按钮2
+        abtn[1].onclick = function(ev){
+            var d2 = new Dialog()
+            d2.init({
+                w:300,
+                h:300,
+                pos: 'center',
+                title: '注册',
+                text: '注册提示内容',
+                index:1,
+                move:true,
+            });
+        }
+        //按钮3
+        abtn[2].onclick = function(ev){
+            var d3 = new Dialog()
+            d3.init({
+                w:300,
+                h:300,
+                pos: 'right-bottom',
+                title: '广告',
+                text: '广告内容',
+                index:2,
+            });
+        }
+
+    </script>
+</body>
+</html>

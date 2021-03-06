@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>贪吃蛇</title>
+</head>
+<body>
+    <button id = 'btn'>开始</button>
+    <script>
+        function Map(){
+            this.width = 800;
+            this.height = 400;
+            this.bgcolor = '#ccc';
+            this.position = 'relative';
+            this.omap = null;
+            this.idname = 'map';
+            this.food = null;
+            this.snake = null;
+        }
+        Map.prototype.init = function(){
+            this.omap = document.createElement('div');
+            this.omap.style.width = this.width + 'px';
+            this.omap.style.height = this.height + 'px';
+            this.omap.style.backgroundColor =  this.bgcolor;
+            this.omap.style.position = this.position;
+            this.omap.id = this.idname;
+            document.body.appendChild(this.omap)
+            this.food = new Food();
+            this.snake = new Snake(this.food);
+        }
+        function Food(){
+            this.width = 20;
+            this.height = 20;
+            this.position = 'absolute';
+            this.bgcolor = 'red';
+            this.left = getRandomInt(0,39);//随机值（0--780）
+            this.top = getRandomInt(0,19);//随机值（0--380）
+            this.ofood = null;
+            this.omap = document.getElementById('map');
+        }
+        Food.prototype.init = function(afterEat){
+            if(this.ofood && afterEat){
+                this.omap.removeChild(this.ofood);
+            }
+            this.ofood = document.createElement('div');
+            this.ofood.style.width = this.width + 'px';
+            this.ofood.style.height = this.height + 'px';
+            this.ofood.style.position = this.position;
+            this.ofood.style.backgroundColor = this.bgcolor;
+            this.omap.appendChild(this.ofood);
+            
+            this.left = getRandomInt(0,39);//随机值（0--780）
+            this.top = getRandomInt(0,19);//随机值（0--380）
+            this.ofood.style.left = 20 * this.left + 'px';
+            this.ofood.style.top = 20 * this.top + 'px';
+        }
+        function Snake(food){
+            this.width = 20;
+            this.height = 20;
+            this.position = 'absolute';
+            this.body = null;
+            this.omap = document.getElementById('map');
+            this.direct = 'right'; 
+            this.number = 0;
+            this.timer = null;
+            this.food = food;
+           
+          }
+        Snake.prototype.run = function(){
+            this.direct = 'right'; 
+            this.number = 0;
+            document.title = this.number;
+            //创建一条蛇
+            this.body = [
+                // x坐标,y坐标,颜色,div
+                [3,2,'red',null],
+                [2,2,'blue',null],
+                [1,2,'blue',null],
+            ]
+            this.show();
+            var that = this;
+            //移动
+            this.timer = setInterval(function(){
+                that.move();
+            },500);
+            //控制方向
+            document.onkeyup = function(ev){
+                var ev = ev || event;
+                that.set_direct(ev.keyCode);
+            }
+            
+        }
+
+        Snake.prototype.show = function(){
+            for(var i=0;i<this.body.length;i++){
+                if(this.body[i][3] == null){
+                    //创建一个div
+                    this.body[i][3] = document.createElement('div');
+                    this.body[i][3].style.width = this.width + 'px';
+                    this.body[i][3].style.height = this.height + 'px';
+                    this.body[i][3].style.backgroundColor = this.body[i][2];
+                    this.body[i][3].style.position = this.position;
+                    this.body[i][3].style.left = this.body[i][0] * 20 + 'px';
+                    this.body[i][3].style.top = this.body[i][1] * 20 + 'px';
+                    this.omap.appendChild(this.body[i][3]);
+                }else{
+                    this.body[i][3].style.left = this.body[i][0] * 20 + 'px';
+                    this.body[i][3].style.top = this.body[i][1] * 20 + 'px';
+                }
+            }
+        }
+        Snake.prototype.move = function(){
+            var len = this.body.length;
+            for (var i = len - 1; i > 0; i--) {
+                this.body[i][0] = this.body[i - 1][0];
+                this.body[i][1] = this.body[i - 1][1];
+            }
+            //this.body[0][0] += 1;右  
+            //this.body[0][1] += 1;下
+            switch (this.direct){
+                case 'right' :
+                    this.body[0][0] += 1;
+                    break;
+                case 'left':
+                    this.body[0][0] -= 1;
+                    break;
+                case 'down':
+                    this.body[0][1] += 1;
+                    break;
+                case 'up':
+                    this.body[0][1] -= 1;
+                    break;
+            }
+            if(this.body[0][0] === map.food.left && this.body[0][1] === map.food.top){
+                var len = this.body.length;
+                var x = this.body[len - 1][0];
+                var y = this.body[len - 1][1];
+                this.body.push([x,y,'blue',null]);
+                this.food.init(true);
+                this.number++;
+                document.title = this.number;
+            }
+            if(this.body[0][0] < 0 || this.body[0][0] > 39 
+               || this.body[0][1] < 0 || this.body[0][1] > 19){
+                   clearInterval(this.timer);
+                   alert('game over!');
+                   return;
+               } 
+            for(let i = 1; i < this.body.length; i++){
+                if(this.body[0][0] == this.body[i][0] && this.body[0][1] == this.body[i][1]){
+                   clearInterval(this.timer);
+                   alert('game over!');
+                   return;
+                }
+            }
+            this.show();
+        }
+        Snake.prototype.set_direct = function(keyCode){
+            switch (keyCode){
+                case 37:
+                    this.direct = 'left';
+                    break;
+                case 38:
+                    this.direct = 'up';
+                    break;
+                case 39:
+                    this.direct = 'right';
+                    break;
+                case 40:
+                    this.direct = 'down';
+                    break; 
+            }
+        }
+       
+
+        function getRandomInt(min,max){
+            // 随机获取整数,生成一个n-m之间的随机整数
+            return Math.floor(Math.random()*(max-min+1)+min)
+        }
+        function getStyle(obj, attr){ 
+            // 获取目标样式
+            return window.getComputedStyle ? getComputedStyle(obj)[attr]: obj.currentStyle[attr] 
+        }
+
+        var obtn = document.getElementById('btn');
+        var map ;
+        obtn.onclick = function(ev){
+            if(map){
+                clearInterval(map.snake.timer)
+                map.omap.innerHTML = '';
+            }else{
+                map = new Map();
+                map.init();
+            }
+            
+            map.food.init(false);
+            map.snake.run();
+           
+        }
+        
+    </script>
+</body>
+</html>

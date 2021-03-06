@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>点击摆动</title>
+    <style type="text/css">
+    #box{
+        width: 100px;
+        height: 100px;
+        background-color:green;
+        position: absolute;
+        top: 200px;
+        left: 500px;
+    }
+    </style>
+    
+<body>
+    <div id="box"></div>
+    
+    <script>
+        var obox = document.getElementById('box');
+        // 获取目标样式
+        function getStyle(obj, attr){ 
+            return window.getComputedStyle ? getComputedStyle(obj)[attr]: obj.currentStyle[attr] 
+        }
+        //弹窗提示
+        function fn1(){
+            console.log('点击摆动')
+        }
+        function waver(obj,derection,max,speed){
+            var arr = [];
+            for(var i=max; i>=0;i-=3){
+                arr.push(i,-i)
+            }
+            var n = parseInt(getStyle(obj,derection));
+            obj.onclick = function(){
+                var index = 0;
+                clearInterval(obj.waver);
+                obj.waver = setInterval(() => {
+                    obj.style[derection] = n + arr[index] + 'px';
+                    index++;
+                    if(index == arr.length){
+                        clearInterval(obj.waver);
+                        fn1();
+                    }
+                }, speed); 
+            }
+        }
+        waver(obox,'left',50,10);
+    </script>
+
+</body>
+</html>

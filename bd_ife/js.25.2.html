@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="clock"></p>
+    <script>
+        //输出格式变为：2008-10-10 Monday 07:10:30 PM
+        var oclock = document.getElementById('clock') 
+        function check(n){
+            if(n < 10){
+                n = '0' + n;
+            }
+            return n;
+        }
+        function getweekday(d){
+            var weekday = new Array(7);
+            weekday[0] = "Sunday"
+            weekday[1] = "Monday"
+            weekday[2] = "Tuesday"
+            weekday[3] = "Wednesday"
+            weekday[4] = "Thursday"
+            weekday[5] = "Friday"
+            weekday[6] = "Saturday"
+            return weekday[d.getDay()];
+        }
+        function getdate(d) {
+            var year = d.getFullYear();
+            var mou = d.getMonth() + 1;
+            var date = d.getDate();
+            mou = check(mou);
+            date = check(date);
+            return year + '-' + mou + '-' + date;
+        }
+        function gettime(d){
+            var hour = d.getHours();
+            var min = d.getMinutes();
+            var s = d.getSeconds();
+            hour = check(hour);
+            min = check(min);
+            s = check(s);
+            var tip = 'AM';
+            if(hour > 11){
+                tip = 'PM';
+            }
+            return hour + ':' + min + ':' + s + ' ' + tip ;
+        }
+        function showtime(){
+            var d = new Date;
+            oclock.innerHTML = getdate(d) + ' ' + getweekday(d) + ' '+ gettime(d) ;
+
+        }
+        setInterval(showtime, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笑脸动态图</title>
+    <style>
+        #img{
+            background-image: url(./img/smile.jpg);
+            background-repeat: no-repeat;
+            background-position-x: 0px;
+            background-position-y: 0px;
+            width: 480px;
+            height: 480px;
+            border: 5px blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="img"></div>
+    <script>
+        //基于一个我们提供的图片，实现 IFE2016中Erik笑容的动画
+        var oimg = document.getElementById('img');
+        var timer;
+        var y = 0;
+        function smile(){
+            timer = setInterval(() => {
+                oimg.style.backgroundPositionY = y + 'px';
+                y = y - 480;
+                
+                if(y == -8160){
+                    clearInterval(timer);
+                    y = 0;
+                    smile();
+                }
+            }, 100);
+        }
+        smile();
+    </script>
+</body>
+</html>

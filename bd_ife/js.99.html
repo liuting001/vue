@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+   <script> 
+       //基础数据类型：undefined, null, number, boolean, string, symbol(es6新增类型).
+       //引用数据类型：object, array, function.
+       //判断变量类型：typeof, instanceof, Object.prototype.toString.call()
+       var str = new String('ads123');
+       console.log(typeof (str));
+       console.log(typeof(str) === 'string');
+       console.log(typeof str);
+       console.log(typeof str === 'string');
+       console.log(str.constructor === String);
+       console.log(str instanceof String);
+       console.log(Object.prototype.toString.call(str) ==='[object String]');
+       
+
+       
+
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <ul id="list"></ul> -->
+    <!-- <textarea id="txt"></textarea>
+    <button id="btn">查看</button> -->
+    <script>
+// 1-->> +
+
+// 2-->> ==;===
+
+// 3-->> indexOf,存在返回首次出现的位置，不存在则返回-1；
+    // var str1 = '123abc123';
+    // var str2 = '3ab';
+    // var str3 = 'bcd'
+    // console.log(str1.indexOf(str2));
+    // console.log(str1.indexOf(str3));
+
+// 4-->> substr substring lastIndexOf
+    // var path = 'http://localhost:4000/chapter1/string.html';
+    // var str1 = path.substr(path.lastIndexOf('.'));
+    // var idx = path.indexOf(':')
+    // var schema = path.substr(0,idx);
+    // var l_idx = idx + 3;
+    // var r_idx = path.indexOf(':', l_idx);
+    // var domain = path.substring(l_idx,r_idx);
+    // l_idx = r_idx + 1;
+    // r_idx = path.indexOf('/', l_idx);
+    // var port = path.substring(l_idx,r_idx);
+    // var pa = path.substring(r_idx);
+    // console.log(schema,domain,port,pa);
+
+// 5-->> typeof 运算符，计算变量的类型
+    // var result = ( typeof path == 'string' && path !== '');
+    // console.log(result);
+    
+// 6-->> prompt用户输入；split分割字符串成为一个数组；
+    // var ul = document.getElementById('list');
+    // var str = prompt('输入名字');
+    // console.log(str);
+    // var arr = str.split(',');
+
+    // for(var i=0;i<arr.length;i++){
+    //     var str1 = arr[i];
+    //     var li  = document.createElement('li');
+    //     li.innerHTML = str1;
+    //     ul.appendChild(li);
+    // }
+
+// 7-->> \n转义字符
+    // var str = 'abcdef';
+    // var str2 = 'abc\ndef'
+    // console.log(str2)
+
+// 8-->> \n转义字符，split分割字符串，map遍历数组，trim删除首位空格字符
+    // var otxt = document.getElementById('txt');
+    // var obtn = document.getElementById('btn');
+    // obtn.onclick = function(){
+    //     var str = otxt.value;
+    //     var arr = str.split('\n');
+    //     console.log(arr);
+    //     arr = arr.map((item)=>item.trim());
+    //     console.log(arr); 
+    // }
+
+// 9-->> join使用某字符来连接数组元素，成为新的字符串
+    // var str = 'hello';
+    // var arr = str.split('');
+    // console.log(arr);
+    // var str2 = arr.map(function(item){ 
+    //         return item + ' ';
+    //     }).join('')
+    // console.log(str2);
+
+// 10-->> split分割字符串  reverse翻转数组
+    // var str = 'hello';
+    // var arr = str.split('');
+    // var arr2 = arr.reverse();
+    // var str2 = arr2.join('')
+    // console.log(str2);
+
+    
+
+
+
+    </script>
+</body>
+</html>

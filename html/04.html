@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>定时器 获取当前时间</title>
+        <meta charset="utf8"/>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <button id="btn1" >开始</button>
+        <button id="btn2" >结束</button>
+        <div id="content"></div>
+        <script>
+            var obtn1 = document.getElementById('btn1');
+            var obtn2 = document.getElementById('btn2');
+            var ocontent = document.getElementById('content');
+            var timer;
+            function gettime(){
+                var date = new Date();
+                ocontent.innerHTML = date.toLocaleString();
+                timer = setTimeout(gettime,1000)
+            }
+            obtn1.onclick = gettime;
+            obtn2.onclick = function(){
+              clearTimeout(timer);
+            }
+
+        </script>
+    </body>
+</html>

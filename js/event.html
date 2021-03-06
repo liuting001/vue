@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position:absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+    <button>6</button> -->
+
+    <!-- <div id="box"></div> -->
+
+    <!-- <a href="http://edu.nodeing.com">课堂</a> -->
+    <script>
+
+
+
+        // var mulitImg = [
+        //     'http://edu.nodeing.com/files/system/block_picture_1516373242.jpg?version=8.2.14',
+        //     'http://edu.nodeing.com/files/system/block_picture_1516588307.jpg?version=8.2.14',
+        //     'http://edu.nodeing.com/files/system/block_picture_1516374079.jpg?version=8.2.14',
+        //     'http://edu.nodeing.com/files/system/block_picture_1516379328.jpg?version=8.2.14'
+        // ]
+        //顺序加载
+        // function imgload(arr,i){
+        //     if(i >= arr.length) return;
+        //     var oimg = new Image();
+        //     oimg.src = mulitImg[i];
+        //     oimg.title = '这是第' + i + '张';
+        //     oimg.onload = function () {
+        //         document.body.appendChild(this);
+        //         imgload(arr,i + 1); 
+        //     }
+        // }
+        // imgload(mulitImg,0);
+        //无序加载
+        // for(var i=0;i<mulitImg.length;i++){
+        //     var oimg = new Image();
+        //     oimg.src = mulitImg[i];
+        //     oimg.title = '这是第'+i+'张'
+        //     oimg.onload = function(){
+        //         document.body.appendChild(this);
+        //     }
+        // }
+        
+
+        
+
+
+
+        // var imgsrc = 'http://edu.nodeing.com/files/system/block_picture_1516379328.jpg?version=8.2.14'
+        // var oimg = new Image();
+        // oimg.src = imgsrc;
+        // oimg.onload = function(){
+        //     document.body.appendChild(this);
+        // }
+
+
+        // var all_btn = document.getElementsByTagName('button');
+        // for(var i=0;i<all_btn.length;i++){
+        //     all_btn[i].onclick = (function(n){
+        //         return function(){alert(n)};
+        //     })(i);
+        // }
+
+
+
+        // var obox = document.getElementById('box');
+        function getStyle(obj, attr){ 
+            return window.getComputedStyle ? getComputedStyle(obj)[attr]: obj.currentStyle[attr] 
+        }
+        // obox.onmousedown = function(ev){
+        //     ev = ev || event;
+        //     var dx = ev.clientX - parseInt(getStyle(obox,'left'));
+        //     var dy = ev.clientY - parseInt(getStyle(obox,'top'));
+        //     console.log(dx,dy)
+        //     document.onmousemove = function(ev){
+        //         ev = ev || event;
+        //         obox.style.left = ev.clientX - dx + 'px';
+        //         obox.style.top = ev.clientY - dy+ 'px';
+        //     }  
+        //     document.onmouseup = function () {
+        //         document.onmousemove = null;
+        //         document.onmouseup = null;
+        //         console.log(1)
+        //     }
+        // }
+       
+        // document.onkeyup = function(ev){
+        //     console.log(ev.keyCode);
+        //     ev = ev || event;
+        //     var top = parseInt(getStyle(obox, 'top'));
+        //     var left = parseInt(getStyle(obox, 'left'));
+        //     console.log(top,left)
+        //     switch(ev.keyCode){
+        //         case 38:
+        //             obox.style.top = (top - 100) + 'px';
+        //             break;
+        //         case 40:
+        //             obox.style.top = (top + 100) + 'px';
+        //             break;
+        //         case 37:
+        //             obox.style.left = (left - 100) + 'px';
+        //             break;
+        //         case 39:
+        //             obox.style.left = (left + 100) + 'px';
+        //             break;
+        //     }
+        // }
+
+        
+        
+        
+
+
+        //添加事件绑定  addeventlistener/attachevent; eventtype; element
+        function listenEvent(obj,eventtype,fn){
+            if(obj.addEventListener){
+                obj.addEventListener(eventtype,fn,false)
+            }else if(obj.attachEvent){
+                obj.attachEvent('on'+eventtype,fn)
+            }else{
+                obj['on'+ eventtype] = fn;
+            }
+        } 
+        //取消事件绑定
+        function stopListening(obj,eventtype,fn){
+            if(obj.removeEventListener){
+                obj.removeEventListener(eventtype,fn,false)
+            }else if(obj.detachEvent){
+                obj.detachEvent('on'+eventtype,fn)
+            }else{
+                obj['on'+ eventtype] = null;
+            }
+        }
+        // listenEvent(document,'click',function fn1(){
+        //     alert(1);
+        //     stopListening(document,'click',fn1);
+        // })
+
+        //阻止事件默认行为
+        function preventEvent(ev){
+            if(ev.preventDefault){//标准浏览器
+                ev.preventDefault();
+            }else{//ie低版本
+                ev.returnValue = false;
+            }
+        }
+        // var oa = document.getElementsByTagName('a')[0];
+        // oa.onclick = function(ev){
+        //     console.log(ev);
+        //     preventEvent(ev);
+        //     cancelPropagation(ev);
+        // }
+        //取消事件冒泡
+        function cancelPropagation(ev){
+            (ev.stopPropagation && ev.stopPropagation()) ||( ev.cancelBubble = true)
+        }
+    </script>
+
+
+</body>
+</html>
